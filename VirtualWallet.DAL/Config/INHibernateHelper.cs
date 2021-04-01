@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RestApiInmoto.DAL.Config
+namespace VirtualWallet.DAL.Config
 {
     public interface INHibernateHelper
     {

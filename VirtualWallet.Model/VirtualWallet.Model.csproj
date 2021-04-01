@@ -8,4 +8,8 @@
     <Folder Include="Domain\Mappings\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VirtualWallet.Common\VirtualWallet.Common.csproj" />
+  </ItemGroup>
+
 </Project>

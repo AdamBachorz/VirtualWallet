@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RestApiInmoto.DAL.Config
+namespace VirtualWallet.DAL.Config
 {
     public class CustomConfig : ICustomConfig
     {

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -7,6 +7,11 @@
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />
     <PackageReference Include="Npgsql" Version="5.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VirtualWallet.Common\VirtualWallet.Common.csproj" />
+    <ProjectReference Include="..\VirtualWallet.Model\VirtualWallet.Model.csproj" />
   </ItemGroup>
 
 </Project>

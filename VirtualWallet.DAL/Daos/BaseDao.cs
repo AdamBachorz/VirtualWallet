@@ -1,15 +1,15 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
-using RestApiInmoto.DAL.Config;
-using RestApiInmoto.DAL.Daos.Interfaces;
-using RestApiInmoto.Model.Domain;
+using VirtualWallet.DAL.Config;
+using VirtualWallet.DAL.Daos.Interfaces;
+using VirtualWallet.Model.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 
-namespace RestApiInmoto.DAL.Daos
+namespace VirtualWallet.DAL.Daos
 {
     public abstract class BaseDao<E> : IBaseDao<E> where E : Entity 
     {

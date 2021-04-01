@@ -1,11 +1,11 @@
-﻿using RestApiInmoto.DAL.Config;
+﻿using VirtualWallet.DAL.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace RestApiInmoto.DAL.Daos.Interfaces
+namespace VirtualWallet.DAL.Daos.Interfaces
 {
     public interface IBaseDao<E>
     {

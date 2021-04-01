@@ -5,14 +5,14 @@ using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
-using RestApiInmoto.Model.Domain.Mappings;
+//using VirtualWallet.Model.Domain.Mappings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace RestApiInmoto.DAL.Config
+namespace VirtualWallet.DAL.Config
 {
     public class NHibernateHelper : INHibernateHelper
     {
