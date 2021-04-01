@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualWallet.API", "Virtua
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VritualWallet.Common", "VritualWallet.Common\VritualWallet.Common.csproj", "{0F8F44CC-CABC-467C-91B6-7D01C468D262}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualWallet.Model", "VirtualWallet.Model\VirtualWallet.Model.csproj", "{C333FA35-1217-484A-9E0A-756BE705F995}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0F8F44CC-CABC-467C-91B6-7D01C468D262}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F8F44CC-CABC-467C-91B6-7D01C468D262}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F8F44CC-CABC-467C-91B6-7D01C468D262}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C333FA35-1217-484A-9E0A-756BE705F995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C333FA35-1217-484A-9E0A-756BE705F995}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C333FA35-1217-484A-9E0A-756BE705F995}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C333FA35-1217-484A-9E0A-756BE705F995}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
