@@ -18,6 +18,8 @@ namespace VirtualWallet.API.Config
             services.AddScoped<INHibernateHelper, NHibernateHelper>();
 
             // DAOs
+            services.AddScoped<IBaseDao<TestEntity>, TestEntityDao>();
+            services.AddScoped<ITestEntityDao, TestEntityDao>();
 
             //Services
             services.AddScoped<IUserService, UserService>();
