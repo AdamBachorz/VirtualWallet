@@ -6,11 +6,11 @@ using System.Text;
 
 namespace VirtualWallet.ApiConsumer.Utils
 {
-    public class ApiValidatorV2<R>
+    public class ApiValidator<R>
     {
         public R InputData { get; set; }
         public IDictionary<string, string> ErrorCodes { get; set; }
-        public Action<ApiValidatorV2<R>> FindErrors { get; set; } = (validator) => { };
+        public Action<ApiValidator<R>> FindErrors { get; set; } = (validator) => { };
         public string ErrorMessagesConnector { get; set; } = ApiError.DefaultErrorConnector;
         public bool TechnicalErrorOccured { get; private set; } = false;
         public IList<ApiError> ErrorList { get; private set; }

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace VirtualWallet.ApiConsumer.Utils
 {
-    public class ApiConnectionV2
+    public class ApiConnection
     {
         public string WareHouseName { get; set; } = string.Empty;
         public string Host { get; set; }
@@ -183,13 +183,13 @@ namespace VirtualWallet.ApiConsumer.Utils
 
         public static Func<string, string> DefaultStringToStringInterpreter => stringResult => stringResult;
 
-        public static ApiConnectionV2 TestConnection()
+        public static ApiConnection TestConnection()
         {
             var regularHost = "https://localhost:5001/api/";
             var sslHost = "https://localhost:44316/api/";
             var productionHost = "https://restapiinmoto.herokuapp.com/api/";
 
-            return new ApiConnectionV2
+            return new ApiConnection
             {
                 WareHouseName = "Połączenie testowe",
                 Host = productionHost,
