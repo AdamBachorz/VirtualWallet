@@ -11,7 +11,7 @@ namespace VirtualWallet.ApiConsumer.Utils
 {
     public class ApiConnection
     {
-        public string WareHouseName { get; set; } = string.Empty;
+        public string EntityName { get; set; } = string.Empty;
         public string Host { get; set; }
         public AuthenticationType AuthenticationType { get; set; } = AuthenticationType.BasicAuth;
         public string Token { get; set; }
@@ -191,7 +191,7 @@ namespace VirtualWallet.ApiConsumer.Utils
 
             return new ApiConnection
             {
-                WareHouseName = "Połączenie testowe",
+                EntityName = "Połączenie testowe",
                 Host = productionHost,
                 Credential = new NetworkCredential("test", "test123"),
                 AuthenticationType = AuthenticationType.BasicAuth,

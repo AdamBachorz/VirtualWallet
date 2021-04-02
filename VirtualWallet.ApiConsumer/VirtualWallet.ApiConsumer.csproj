@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VirtualWallet.Common\VirtualWallet.Common.csproj" />
+    <ProjectReference Include="..\VirtualWallet.DAL\VirtualWallet.DAL.csproj" />
     <ProjectReference Include="..\VirtualWallet.Model\VirtualWallet.Model.csproj" />
   </ItemGroup>
 
