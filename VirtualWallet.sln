@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualWallet.API", "VirtualWallet.API\VirtualWallet.API.csproj", "{3567A7AD-135D-4FC9-83BA-35190D01C3B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualWallet.API", "VirtualWallet.API\VirtualWallet.API.csproj", "{3567A7AD-135D-4FC9-83BA-35190D01C3B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualWallet.Model", "VirtualWallet.Model\VirtualWallet.Model.csproj", "{C333FA35-1217-484A-9E0A-756BE705F995}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualWallet.Model", "VirtualWallet.Model\VirtualWallet.Model.csproj", "{C333FA35-1217-484A-9E0A-756BE705F995}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualWallet.DAL", "VirtualWallet.DAL\VirtualWallet.DAL.csproj", "{CFAFE730-B87B-49FD-8C7D-73CDB65981E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualWallet.DAL", "VirtualWallet.DAL\VirtualWallet.DAL.csproj", "{CFAFE730-B87B-49FD-8C7D-73CDB65981E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualWallet.Common", "VirtualWallet.Common\VirtualWallet.Common.csproj", "{E6FE4637-0220-45B9-B99C-A33782617A2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualWallet.Common", "VirtualWallet.Common\VirtualWallet.Common.csproj", "{E6FE4637-0220-45B9-B99C-A33782617A2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualWallet.ApiConsumer", "VirtualWallet.ApiConsumer\VirtualWallet.ApiConsumer.csproj", "{0C856317-4C07-4451-BC1D-B94A9F025772}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E6FE4637-0220-45B9-B99C-A33782617A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6FE4637-0220-45B9-B99C-A33782617A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6FE4637-0220-45B9-B99C-A33782617A2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C856317-4C07-4451-BC1D-B94A9F025772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C856317-4C07-4451-BC1D-B94A9F025772}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C856317-4C07-4451-BC1D-B94A9F025772}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C856317-4C07-4451-BC1D-B94A9F025772}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
