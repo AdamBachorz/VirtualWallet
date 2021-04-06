@@ -13,7 +13,7 @@ namespace VirtualWallet.Model.Domain.Mappings
             Id(x => x.Id, "id").GeneratedBy.Identity();
             Map(x => x.Name, "name");
             HasMany(x => x.Users)
-                .KeyColumn("id_user")
+                .KeyColumn("id_user_role")
                 .Not.LazyLoad()
                 .Inverse()
                 ;

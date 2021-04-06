@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using VirtualWallet.Model.Domain.Mappings;
 
 namespace VirtualWallet.DAL.Config
 {
@@ -36,7 +37,8 @@ namespace VirtualWallet.DAL.Config
         
         private void Mapping(MappingConfiguration mapping)
         {
-            //mapping.FluentMappings.Add<>();
+            mapping.FluentMappings.Add<UserRoleMapping>();
+            mapping.FluentMappings.Add<UserMapping>();
         }
 
         private HbmMapping BasicMapping()

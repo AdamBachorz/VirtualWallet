@@ -9,7 +9,7 @@ namespace VirtualWallet.Model.Domain.Mappings
     {
         public UserMapping()
         {
-            Table("user");
+            Table("app_user");
             Id(x => x.Id, "id").GeneratedBy.Identity();
             Map(x => x.UserName, "user_name");
             Map(x => x.PasswordHash, "password_hash");

@@ -7,6 +7,6 @@ namespace VirtualWallet.Model.Domain
     public class UserRole : Entity
     {
         public virtual string Name { get; set; }
-        public virtual IList<User> Users { get; set; }
+        public virtual IEnumerable<User> Users { get; set; }
     }
 }
