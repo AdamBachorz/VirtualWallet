@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,12 +8,15 @@ using VirtualWallet.ApiConsumer.Interfaces;
 using VirtualWallet.ApiConsumer.Utils;
 using VirtualWallet.DAL.Config;
 using VirtualWallet.DAL.Services.Interfaces;
+using VirtualWallet.Model.Classes.Utils;
 using VirtualWallet.Model.Domain;
 
 namespace VirtualWallet.ApiConsumer
 {
-    public class BaseApiConsumer<E> : IBaseApiConsumer<E> where E : Entity
+    public abstract class BaseApiConsumer<E> : IBaseApiConsumer<E> where E : Entity
     {
+        public const string ApiPrefix = "api";
+
         protected readonly ICustomConfig _customConfig;
         protected readonly IUserService _userService;
 
@@ -26,7 +30,7 @@ namespace VirtualWallet.ApiConsumer
             _apiConnection = new ApiConnection
             {
                 Host = _customConfig.IsProduction ? RemoteHostUrl : TestHostUrl,
-                UseSSL = !_customConfig.IsProduction,
+                UseSSL = _customConfig.IsProduction,
                 AuthenticationType = AuthenticationType.BasicAuth,
                 Credential = new NetworkCredential("test", "test123"), // TBE - UserService
                 EntityName = typeof(E).Name
@@ -37,17 +41,19 @@ namespace VirtualWallet.ApiConsumer
         public string TestSslHostUrl { get; } = "https://localhost:44367/api";
         public string RemoteHostUrl { get; } = ""; // TBE
 
+        public string ApiMethodName => $"{ApiPrefix}/{ControllerSimpleName}"; 
+
         public IList<E> GetAll()
         {
             try
             {
                 var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<List<E>>
                 {
-                    MethodName = "",
+                    MethodName = ApiMethodName,
                     MethodType = MethodType.Get,
                     InputBody = null,
                     ContentType = ContentType.json,
-                    ResultDataInterpreter = result => new List<E>() // TBE - interpreter
+                    ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<List<E>>(jsonResult)
                 });
 
                 return apiResponse.Response;
@@ -71,7 +77,24 @@ namespace VirtualWallet.ApiConsumer
 
         public E GetOneById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<E>
+                {
+                    MethodName = $"{ApiMethodName}/{id}",
+                    MethodType = MethodType.Get,
+                    InputBody = null,
+                    ContentType = ContentType.json,
+                    ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<E>(jsonResult)
+                });
+
+                return apiResponse.Response;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public E Insert(E entity)
@@ -93,6 +116,8 @@ namespace VirtualWallet.ApiConsumer
         {
             throw new NotImplementedException();
         }
+
+        public abstract string ControllerSimpleName { get; }
 
         #region Invokers
         //

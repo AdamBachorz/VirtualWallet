@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using VirtualWallet.API.Config;
 using VirtualWallet.DAL.Config;
 using VirtualWallet.DAL.Daos;
 using VirtualWallet.DAL.Daos.Interfaces;
@@ -8,6 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VirtualWallet.DAL.Services.Interfaces;
+using VirtualWallet.DAL.Services;
+using VirtualWallet.ApiConsumer;
+using VirtualWallet.ApiConsumer.Interfaces;
 
 namespace VirtualWallet.API.Config
 {
@@ -24,8 +27,12 @@ namespace VirtualWallet.API.Config
             services.AddScoped<IBaseDao<UserRole>, UserRoleDao>();
             services.AddScoped<IUserRoleDao, UserRoleDao>();
 
-            //Services
+            // Services
             services.AddScoped<IUserService, UserService>();
+
+            // API consumers
+            services.AddScoped<IBaseApiConsumer<TestEntity>, TestEntityApiConsumer>();
+            services.AddScoped<ITestEntityApiConsumer, TestEntityApiConsumer>();
         }
     }
 }

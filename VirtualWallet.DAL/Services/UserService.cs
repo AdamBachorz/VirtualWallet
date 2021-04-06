@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VirtualWallet.DAL.Services.Interfaces;
 
 namespace VirtualWallet.DAL.Services
 {
