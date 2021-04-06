@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using VirtualWallet.DAL.Services.Interfaces;
 
 namespace VirtualWallet.API.Config
 {
@@ -69,22 +70,4 @@ namespace VirtualWallet.API.Config
         }
     }
 
-    public interface IUserService
-    {
-        bool IsValidUser(string username, string password);
-    }
-
-    public class UserService : IUserService
-    {
-        public bool IsValidUser(string username, string password)
-        {
-            var correct = new
-            {
-                Username = "test",
-                Password = "test123"
-            };
-
-            return username.Equals(correct.Username) && password.Equals(correct.Password);
-        }
-    }
 }

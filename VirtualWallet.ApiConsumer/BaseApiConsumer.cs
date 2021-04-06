@@ -6,19 +6,23 @@ using System.Text;
 using VirtualWallet.ApiConsumer.Interfaces;
 using VirtualWallet.ApiConsumer.Utils;
 using VirtualWallet.DAL.Config;
+using VirtualWallet.DAL.Services.Interfaces;
 using VirtualWallet.Model.Domain;
 
 namespace VirtualWallet.ApiConsumer
 {
     public class BaseApiConsumer<E> : IBaseApiConsumer<E> where E : Entity
     {
-        private readonly ICustomConfig _customConfig;
+        protected readonly ICustomConfig _customConfig;
+        protected readonly IUserService _userService;
 
         private ApiConnection _apiConnection;
 
-        public BaseApiConsumer(ICustomConfig customConfig)
+        public BaseApiConsumer(ICustomConfig customConfig, IUserService userService)
         {
             _customConfig = customConfig;
+            _userService = userService;
+
             _apiConnection = new ApiConnection
             {
                 Host = _customConfig.IsProduction ? RemoteHostUrl : TestHostUrl,
