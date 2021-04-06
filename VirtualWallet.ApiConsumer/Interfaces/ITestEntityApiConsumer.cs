@@ -7,5 +7,6 @@ namespace VirtualWallet.ApiConsumer.Interfaces
 {
     public interface ITestEntityApiConsumer : IBaseApiConsumer<TestEntity>
     {
+        IList<TestEntity> GetTest();
     }
 }

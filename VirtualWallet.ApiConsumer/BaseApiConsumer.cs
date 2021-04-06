@@ -15,12 +15,9 @@ namespace VirtualWallet.ApiConsumer
 {
     public abstract class BaseApiConsumer<E> : IBaseApiConsumer<E> where E : Entity
     {
-        public const string ApiPrefix = "api";
-
         protected readonly ICustomConfig _customConfig;
         protected readonly IUserService _userService;
-
-        private ApiConnection _apiConnection;
+        protected ApiConnection _apiConnection;
 
         public BaseApiConsumer(ICustomConfig customConfig, IUserService userService)
         {
@@ -29,7 +26,7 @@ namespace VirtualWallet.ApiConsumer
 
             _apiConnection = new ApiConnection
             {
-                Host = _customConfig.IsProduction ? RemoteHostUrl : TestHostUrl,
+                Host = _customConfig.IsProduction ? RemoteHostUrl : TestSslHostUrl,
                 UseSSL = _customConfig.IsProduction,
                 AuthenticationType = AuthenticationType.BasicAuth,
                 Credential = new NetworkCredential("test", "test123"), // TBE - UserService
@@ -41,15 +38,13 @@ namespace VirtualWallet.ApiConsumer
         public string TestSslHostUrl { get; } = "https://localhost:44367/api";
         public string RemoteHostUrl { get; } = ""; // TBE
 
-        public string ApiMethodName => $"{ApiPrefix}/{ControllerSimpleName}"; 
-
         public IList<E> GetAll()
         {
             try
             {
                 var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<List<E>>
                 {
-                    MethodName = ApiMethodName,
+                    MethodName = ControllerSimpleName,
                     MethodType = MethodType.Get,
                     InputBody = null,
                     ContentType = ContentType.json,
@@ -81,7 +76,7 @@ namespace VirtualWallet.ApiConsumer
             {
                 var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<E>
                 {
-                    MethodName = $"{ApiMethodName}/{id}",
+                    MethodName = $"{ControllerSimpleName}/{id}",
                     MethodType = MethodType.Get,
                     InputBody = null,
                     ContentType = ContentType.json,
