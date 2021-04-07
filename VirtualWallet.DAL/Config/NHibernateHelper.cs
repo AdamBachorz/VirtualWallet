@@ -5,7 +5,6 @@ using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
-//using VirtualWallet.Model.Domain.Mappings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
