@@ -30,6 +30,9 @@ namespace VirtualWallet.API.Config
             services.AddScoped<IBaseDao<SpendingGroup>, SpendingGroupDao>();
             services.AddScoped<ISpendingGroupDao, SpendingGroupDao>();
 
+            services.AddScoped<IBaseDao<UserSpendingGroup>, UserSpendingGroupDao>();
+            services.AddScoped<IUserSpendingGroupDao, UserSpendingGroupDao>();
+
             // Services
             services.AddScoped<IUserService, UserService>();
 
