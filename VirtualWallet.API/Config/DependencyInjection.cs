@@ -36,6 +36,9 @@ namespace VirtualWallet.API.Config
             services.AddScoped<IBaseDao<ConstantSpending>, ConstantSpendingDao>();
             services.AddScoped<IConstantSpendingDao, ConstantSpendingDao>();
 
+            services.AddScoped<IBaseDao<Spending>, SpendingDao>();
+            services.AddScoped<ISpendingDao, SpendingDao>();
+
             // Services
             services.AddScoped<IUserService, UserService>();
 

@@ -40,6 +40,8 @@ namespace VirtualWallet.DAL.Config
             mapping.FluentMappings.Add<UserMapping>();
             mapping.FluentMappings.Add<SpendingGroupMapping>();
             mapping.FluentMappings.Add<UserSpendingGroupMapping>();
+            mapping.FluentMappings.Add<ConstantSpendingMapping>();
+            mapping.FluentMappings.Add<SpendingMapping>();
         }
 
         private HbmMapping BasicMapping()

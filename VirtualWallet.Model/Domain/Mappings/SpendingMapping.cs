@@ -5,19 +5,22 @@ using System.Text;
 
 namespace VirtualWallet.Model.Domain.Mappings
 {
-    public class SpendingGroupMapping : ClassMap<SpendingGroup>
+    public class SpendingMapping : ClassMap<Spending>
     {
-        public SpendingGroupMapping()
+        public SpendingMapping()
         {
-            Table("spending_group");
+            Table("spending");
             Id(x => x.Id, "id").GeneratedBy.Identity();
             Map(x => x.Name, "name");
             Map(x => x.Budget, "budget");
-            HasMany(x => x.ConstantSpendings)
-                .KeyColumn("id_constant_spending")
+            References(x => x.User)
+                .Column("id_user")
                 .Not.LazyLoad()
-                .Inverse()
                 ;
+            //References(x => x.MonthlySpending)
+            //    .Column("id_monthly_spending")
+            //    .Not.LazyLoad()
+            //    ;
         }
     }
 }
