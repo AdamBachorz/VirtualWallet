@@ -5,19 +5,15 @@ using System.Text;
 
 namespace VirtualWallet.Model.Domain.Mappings
 {
-    public class SpendingMapping : ClassMap<Spending>
+    public class MonthlySpendingMapping : ClassMap<MonthlySpending>
     {
-        public SpendingMapping()
+        public MonthlySpendingMapping()
         {
-            Table("spending");
+            Table("monthly_spending");
             Id(x => x.Id, "id").GeneratedBy.Identity();
-            Map(x => x.Name, "name");
             Map(x => x.Budget, "budget");
-            References(x => x.User)
-                .Column("id_user")
-                .Not.LazyLoad()
-                ;
-            References(x => x.MonthlySpending)
+            Map(x => x.CreateDate, "create_date");
+            References(x => x.PreviousMonthlySpending)
                 .Column("id_monthly_spending")
                 .Not.LazyLoad()
                 ;
