@@ -10,7 +10,10 @@ namespace VirtualWallet.Model.Domain.Mappings
         public EntityMapping(string tableName) : base()
         {
             Table(tableName);
-            Id(x => x.Id, "id").GeneratedBy.Identity();
+            Id(x => x.Id, "id")
+                //.CustomSqlType("Serial")
+                .GeneratedBy
+                .Sequence(tableName + "_seq");
         }
     }
 }
