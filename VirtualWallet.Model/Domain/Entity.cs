@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace VirtualWallet.Model.Domain
 {
-    public abstract class Entity
+    public abstract class Entity<T>
     {
-        public virtual int Id { get; set; }
+        public virtual T Id { get; set; }
+    }
+
+    public abstract class Entity : Entity<int>
+    {
     }
 }
