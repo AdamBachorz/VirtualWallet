@@ -183,29 +183,6 @@ namespace VirtualWallet.ApiConsumer.Utils
 
         public static Func<string, string> DefaultStringToStringInterpreter => stringResult => stringResult;
 
-        public static ApiConnection TestConnection()
-        {
-            var regularHost = "https://localhost:5001/api/";
-            var sslHost = "https://localhost:44316/api/";
-            var productionHost = "https://restapiinmoto.herokuapp.com/api/";
-
-            return new ApiConnection
-            {
-                EntityName = "Połączenie testowe",
-                Host = productionHost,
-                Credential = new NetworkCredential("test", "test123"),
-                AuthenticationType = AuthenticationType.BasicAuth,
-                UseSSL = true,
-            };
-
-            //var testApiResponse = ApiConnectionV2.TestConnection().Invoke(new ApiRequestSettings<JArray>
-            //{
-            //    MethodName = "myentity",
-            //    MethodType = MethodType.Get,
-            //    ContentType = ContentType.json,
-            //    ResultDataInterpreter = result => JArray.Parse(result),
-            //});
-        }
         //
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml.Linq;
@@ -24,9 +26,6 @@ namespace VirtualWallet.Common.Extensions
         public static bool ContainsAny(this string text, params string[] strings)
             => strings?.Any(s => text.ContainsPhrase(s)) == true;
 
-        public static string ChangeDotToComma(this string text) => text.Replace('.', ',');
-        public static string ChangeCommaToDot(this string text) => text.Replace(',', '.');
-
         public static XCData ToXCData(this string ob) => new XCData(ob);
 
         public static string OrDefault(this string text, string defaultValue) => text.HasValue() ? text : defaultValue;
@@ -46,5 +45,13 @@ namespace VirtualWallet.Common.Extensions
         public static string RemoveSingleSpaces(this string text) => RemoveText(text, " ");
         public static string RemoveMatchPattern(this string text, string pattern) => Regex.Replace(text, pattern, string.Empty);
         public static string RemoveAllSpaces(this string text) => RemoveMatchPattern(text, @"\s+");
+
+        public static string Encrypt(this string text)
+        {
+            UTF8Encoding encoder = new UTF8Encoding();
+            SHA256Managed sha256hasher = new SHA256Managed();
+            byte[] hashedDataBytes = sha256hasher.ComputeHash(encoder.GetBytes(text));
+            return Convert.ToBase64String(hashedDataBytes);
+        }
     }
 }
