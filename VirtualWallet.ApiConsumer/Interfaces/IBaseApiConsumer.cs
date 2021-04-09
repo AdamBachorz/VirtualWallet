@@ -12,7 +12,6 @@ namespace VirtualWallet.ApiConsumer.Interfaces
         E GetLatest();
         IList<E> GetAll();
         E Insert(E entity);
-        void Update(int id, E entity);
         void Update(E entity);
         void Delete(int id);
     }

@@ -118,14 +118,15 @@ namespace VirtualWallet.ApiConsumer
             }
         }
 
-        public void Update(int id, E entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(E entity)
         {
-            throw new NotImplementedException();
+            var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<E>
+            {
+                MethodName = $"{ControllerSimpleName}/{entity.Id}",
+                MethodType = MethodType.Put,
+                InputBody = JsonConvert.SerializeObject(entity),
+                ContentType = ContentType.json
+            });
         }
 
         public void Delete(int id)
