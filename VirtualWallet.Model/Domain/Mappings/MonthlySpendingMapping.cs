@@ -12,7 +12,7 @@ namespace VirtualWallet.Model.Domain.Mappings
             Table("monthly_spending");
             Id(x => x.Id, "id").GeneratedBy.Identity();
             Map(x => x.Budget, "budget");
-            Map(x => x.CreateDate, "create_date");
+            Map(x => x.CreationDate, "creation_date");
             References(x => x.PreviousMonthlySpending)
                 .Column("id_monthly_spending")
                 .Not.LazyLoad()
