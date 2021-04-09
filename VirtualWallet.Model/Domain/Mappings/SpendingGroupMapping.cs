@@ -14,7 +14,7 @@ namespace VirtualWallet.Model.Domain.Mappings
             Map(x => x.Name, "name");
             Map(x => x.Budget, "budget");
             HasMany(x => x.ConstantSpendings)
-                .KeyColumn("id_constant_spending")
+                .KeyColumn("id_spending_group")
                 .Not.LazyLoad()
                 .Inverse()
                 ;

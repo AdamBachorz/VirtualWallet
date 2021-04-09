@@ -27,6 +27,9 @@ namespace VirtualWallet.API.Config
             services.AddScoped<IBaseDao<UserRole>, UserRoleDao>();
             services.AddScoped<IUserRoleDao, UserRoleDao>();
 
+            services.AddScoped<IBaseDao<User>, UserDao>();
+            services.AddScoped<IUserDao, UserDao>();
+
             services.AddScoped<IBaseDao<SpendingGroup>, SpendingGroupDao>();
             services.AddScoped<ISpendingGroupDao, SpendingGroupDao>();
 
