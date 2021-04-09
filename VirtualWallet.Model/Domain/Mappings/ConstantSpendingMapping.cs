@@ -5,12 +5,10 @@ using System.Text;
 
 namespace VirtualWallet.Model.Domain.Mappings
 {
-    public class ConstantSpendingMapping : ClassMap<ConstantSpending>
+    public class ConstantSpendingMapping : EntityMapping<ConstantSpending>
     {
-        public ConstantSpendingMapping()
+        public ConstantSpendingMapping() : base("constant_spending")
         {
-            Table("constant_spending");
-            Id(x => x.Id, "id").GeneratedBy.Identity();
             Map(x => x.Name, "name");
             Map(x => x.Value, "value");
             References(x => x.SpendingGroup)

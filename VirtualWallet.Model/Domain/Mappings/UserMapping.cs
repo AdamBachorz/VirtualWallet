@@ -5,12 +5,10 @@ using System.Text;
 
 namespace VirtualWallet.Model.Domain.Mappings
 {
-    public class UserMapping : ClassMap<User>
+    public class UserMapping : EntityMapping<User>
     {
-        public UserMapping()
+        public UserMapping() : base("app_user")
         {
-            Table("app_user");
-            Id(x => x.Id, "id").GeneratedBy.Identity();
             Map(x => x.UserName, "user_name");
             Map(x => x.PasswordHash, "password_hash");
             Map(x => x.Email, "email");

@@ -5,12 +5,10 @@ using System.Text;
 
 namespace VirtualWallet.Model.Domain.Mappings
 {
-    public class SpendingGroupMapping : ClassMap<SpendingGroup>
+    public class SpendingGroupMapping : EntityMapping<SpendingGroup>
     {
-        public SpendingGroupMapping()
+        public SpendingGroupMapping() : base("spending_group")
         {
-            Table("spending_group");
-            Id(x => x.Id, "id").GeneratedBy.Identity();
             Map(x => x.Name, "name");
             Map(x => x.Budget, "budget");
             HasMany(x => x.ConstantSpendings)

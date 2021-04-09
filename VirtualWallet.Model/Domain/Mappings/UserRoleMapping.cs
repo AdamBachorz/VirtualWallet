@@ -5,12 +5,10 @@ using System.Text;
 
 namespace VirtualWallet.Model.Domain.Mappings
 {
-    public class UserRoleMapping : ClassMap<UserRole>
+    public class UserRoleMapping : EntityMapping<UserRole>
     {
-        public UserRoleMapping()
+        public UserRoleMapping() : base("user_role")
         {
-            Table("user_role");
-            Id(x => x.Id, "id").GeneratedBy.Identity();
             Map(x => x.Name, "name");
             HasMany(x => x.Users)
                 .KeyColumn("id_user_role")
