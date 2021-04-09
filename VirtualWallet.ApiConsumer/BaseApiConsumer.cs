@@ -59,7 +59,22 @@ namespace VirtualWallet.ApiConsumer
 
         public E GetLatest()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<E>
+                {
+                    MethodName = $"{ControllerSimpleName}/latest",
+                    MethodType = MethodType.Get,
+                    ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<E>(jsonResult)
+                });
+
+                return apiResponse.Response;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public E GetOneById(int id)

@@ -12,6 +12,8 @@ namespace VirtualWallet.API.Classes
         GetAll,
         [Description("Pobieranie elementu typu {0} o ID = {1}")]
         GetById,
+        [Description("Pobieranie najnowszego elementu typu {0}")]
+        GetLatest,
         [Description("Wstawianie elementu typu {0}")]
         Insert,
         [Description("Update elementu typu {0}")]

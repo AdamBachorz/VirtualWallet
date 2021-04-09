@@ -62,6 +62,25 @@ namespace VirtualWallet.API.Controllers
             }
         }
 
+        // GET: api/<controller>/latest
+        [HttpGet("latest")]
+        [BasicAuth]
+        public E GetLatest()
+        {
+            try
+            {
+                _logger.QuickLog(DbOperationType.GetLatest, typeof(E));
+                var result = _baseDao.GetLatest();
+                _logger.LogIfNotFound(typeof(E), result);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex);
+                throw;
+            }
+        }
+
         // POST api/<controller>
         [HttpPost]
         public E Post([FromBody] E entity)
