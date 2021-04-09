@@ -121,7 +121,12 @@ namespace VirtualWallet.ApiConsumer
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<E>
+            {
+                MethodName = $"{ControllerSimpleName}/{id}",
+                MethodType = MethodType.Delete,
+                ContentType = ContentType.json
+            });
         }
 
         public abstract string ControllerSimpleName { get; }

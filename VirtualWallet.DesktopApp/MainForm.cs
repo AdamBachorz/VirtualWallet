@@ -26,7 +26,6 @@ namespace VirtualWallet.DesktopApp
         private void Form1_Load(object sender, EventArgs e)
         {
             var t = _spendingGroupApiConsumer.GetAll();
-
         }
     }
 }
