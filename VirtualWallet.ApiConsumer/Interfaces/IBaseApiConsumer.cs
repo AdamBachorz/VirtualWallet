@@ -11,7 +11,6 @@ namespace VirtualWallet.ApiConsumer.Interfaces
         E GetOneById(int id);
         E GetLatest();
         IList<E> GetAll();
-        IQueryable<E> GetAllLazy();
         E Insert(E entity);
         void Update(int id, E entity);
         void Update(E entity);

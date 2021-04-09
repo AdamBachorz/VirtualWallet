@@ -46,6 +46,9 @@ namespace VirtualWallet.DesktopApp.Classes.Config
             _container.Register<IBaseApiConsumer<TestEntity>, TestEntityApiConsumer>();
             _container.Register<ITestEntityApiConsumer, TestEntityApiConsumer>();
 
+            _container.Register<IBaseApiConsumer<SpendingGroup>, SpendingGroupApiConsumer>();
+            _container.Register<ISpendingGroupApiConsumer, SpendingGroupApiConsumer>();
+
             _container.Register<MainForm>();
         }
 

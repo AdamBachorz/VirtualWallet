@@ -60,11 +60,6 @@ namespace VirtualWallet.ApiConsumer
             }
         }
 
-        public IQueryable<E> GetAllLazy()
-        {
-            throw new NotImplementedException();
-        }
-
         public E GetLatest()
         {
             throw new NotImplementedException();
@@ -94,7 +89,24 @@ namespace VirtualWallet.ApiConsumer
 
         public E Insert(E entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<E>
+                {
+                    MethodName = ControllerSimpleName,
+                    MethodType = MethodType.Post,
+                    InputBody = JsonConvert.SerializeObject(entity),
+                    ContentType = ContentType.json,
+                    ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<E>(jsonResult)
+                });
+
+                return apiResponse.Response;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public void Update(int id, E entity)

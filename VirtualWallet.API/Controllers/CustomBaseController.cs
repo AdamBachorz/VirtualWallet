@@ -64,18 +64,19 @@ namespace VirtualWallet.API.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody] E entity)
+        public E Post([FromBody] E entity)
         {
             try
             {
                 _logger.QuickLog(DbOperationType.Insert, entity);
-                var justAddedEntity =_baseDao.Insert(entity);
+                var justAddedEntity = _baseDao.Insert(entity);
                 _logger.LogSuccess(() => justAddedEntity.Equals(entity, excludeId: true) && justAddedEntity.Id > 0);
+                return justAddedEntity;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex);
-                //throw;
+                throw;
             }
         }
 
