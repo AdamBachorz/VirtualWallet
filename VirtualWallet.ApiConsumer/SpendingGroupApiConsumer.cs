@@ -16,7 +16,5 @@ namespace VirtualWallet.ApiConsumer
         {
         }
 
-        
-        public override string ControllerSimpleName => "spendinggroup";
     }
 }

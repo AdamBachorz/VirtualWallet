@@ -46,8 +46,6 @@ namespace VirtualWallet.ApiConsumer
                 {
                     MethodName = ControllerSimpleName,
                     MethodType = MethodType.Get,
-                    InputBody = null,
-                    ContentType = ContentType.json,
                     ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<List<E>>(jsonResult)
                 });
 
@@ -73,8 +71,6 @@ namespace VirtualWallet.ApiConsumer
                 {
                     MethodName = $"{ControllerSimpleName}/{id}",
                     MethodType = MethodType.Get,
-                    InputBody = null,
-                    ContentType = ContentType.json,
                     ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<E>(jsonResult)
                 });
 
@@ -96,7 +92,6 @@ namespace VirtualWallet.ApiConsumer
                     MethodName = ControllerSimpleName,
                     MethodType = MethodType.Post,
                     InputBody = JsonConvert.SerializeObject(entity),
-                    ContentType = ContentType.json,
                     ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<E>(jsonResult)
                 });
 
@@ -129,7 +124,7 @@ namespace VirtualWallet.ApiConsumer
             });
         }
 
-        public abstract string ControllerSimpleName { get; }
+        public virtual string ControllerSimpleName => typeof(E).Name.ToLower();
 
         #region Invokers
         //

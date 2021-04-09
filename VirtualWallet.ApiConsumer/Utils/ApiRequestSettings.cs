@@ -16,7 +16,5 @@ namespace VirtualWallet.ApiConsumer.Utils
         public Func<string, T> ResultDataInterpreter { get; set; }
         public IDictionary<string, string> AdditionalHeaders { get; set; }
         public InvokeResult MockResponse { get; set; }
-
-        public bool IsMock => MockResponse?.ResponseString?.HasValue() ?? false;
     }
 }
