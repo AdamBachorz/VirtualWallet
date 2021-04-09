@@ -28,8 +28,7 @@ namespace VirtualWallet.ApiConsumer
             {
                 Host = _customConfig.IsProduction ? RemoteHostUrl : TestSslHostUrl,
                 UseSSL = _customConfig.IsProduction,
-                AuthenticationType = AuthenticationType.BasicAuth,
-                Credential = new NetworkCredential("test", "test123"), // TBE - UserService
+                Credential = _userService.UserCredential(),
                 EntityName = typeof(E).Name
             };
         }
