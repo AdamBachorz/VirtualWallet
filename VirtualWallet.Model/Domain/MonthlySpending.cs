@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VirtualWallet.Common.Extensions;
 
 namespace VirtualWallet.Model.Domain
 {
@@ -16,6 +17,8 @@ namespace VirtualWallet.Model.Domain
         public virtual int Month => CreationDate?.Month ?? 0;
 
         public virtual  int Year => CreationDate?.Year ?? 0;
+
+        public virtual string Title => $"{CreationDate?.GetMonthName()} {Year}";
 
         public virtual decimal SpendingSummary => Spendings?.Sum(s => s.Value) ?? 0;
 

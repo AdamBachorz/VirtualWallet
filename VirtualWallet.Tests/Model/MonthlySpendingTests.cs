@@ -66,5 +66,16 @@ namespace VirtualWallet.Tests.Model
 
             Assert.That(monthlySpending.SummaryBilance, Is.EqualTo(10700));
         }
+
+        [TestCase(2021, 6, ExpectedResult = "Czerwiec 2021")]
+        public string ShouldGetTitle(int year, int month)
+        {
+            var monthlySpending = new MonthlySpending
+            {
+                CreationDate = new DateTime(year, month, 1)
+            };
+
+            return monthlySpending.Title;
+        }
     }
 }
