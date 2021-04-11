@@ -7,7 +7,7 @@ using VirtualWallet.Model.Domain;
 
 namespace VirtualWallet.Tests.Daos
 {
-    [TestFixture]
+    //[TestFixture]
     public class BaseDaoTests<E> where E : Entity
     {
         protected IBaseDao<E> _baseDao;
@@ -22,7 +22,7 @@ namespace VirtualWallet.Tests.Daos
             _baseDao = baseDao;
         }
 
-        [Test]
+        //[Test]
         public void ShouldNotThrow_SelectAll()
         {
             Assert.DoesNotThrow(() => _baseDao.GetAll());
