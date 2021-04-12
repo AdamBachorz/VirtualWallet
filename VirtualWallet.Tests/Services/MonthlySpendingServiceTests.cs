@@ -26,24 +26,18 @@ namespace VirtualWallet.Tests.Services
         [TestCase(2021, 10000, 2, 4)]
         public void ShouldInsert_SmallRange(int year, decimal budget, int startMonth, int endMonth)
         {
-            int id = 0;
             var monthlySpendings = Enumerable.Range(startMonth, endMonth - 1)
-                .Select(n => new MonthlySpending { Id = ++id , CreationDate = new DateTime(year, n, 1) })
+                .Select(n => MonthlySpending.New(budget, year, n, null, null))
                 .ToList();
 
-            for (int i = 1; i < monthlySpendings.Count; i++)
-            {
-                monthlySpendings[i].PreviousMonthlySpending = monthlySpendings[i - 1];
-            }
-
-            monthlySpendings.ForEach(ms => _monthlySpendingDaoMock.Setup(x => x.Insert(It.IsAny<MonthlySpending>())).Returns(ms));
-            _monthlySpendingDaoMock.Setup(x => x.GetLatest()).Returns(monthlySpendings.Last());
+            monthlySpendings.ForEach(ms => _monthlySpendingDaoMock.Setup(x => x.Insert(It.Is<MonthlySpending>(y => y.Month == ms.Month))).Returns(ms));
 
             var service = new MonthlySpendingService(_monthlySpendingDaoMock.Object);
 
-            var addedMonthlySpendings = service.AddInMonthRange(year, budget, startMonth, endMonth);
+            var addedMonthlySpendings = service.AddInMonthRange(year, budget, startMonth, endMonth, null);
 
             Assert.That(addedMonthlySpendings.Count(), Is.EqualTo(monthlySpendings.Count()));
+            Assert.That(addedMonthlySpendings.Select(x => x.Month), Is.EqualTo(monthlySpendings.Select(x => x.Month)));
 
         }
     }

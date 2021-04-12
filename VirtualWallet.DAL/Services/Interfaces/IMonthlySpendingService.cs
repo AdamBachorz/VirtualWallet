@@ -7,6 +7,6 @@ namespace VirtualWallet.DAL.Services.Interfaces
 {
     public interface IMonthlySpendingService
     {
-        IEnumerable<MonthlySpending> AddInMonthRange(int year, decimal budget, int startMonth, int endMonth);
+        IEnumerable<MonthlySpending> AddInMonthRange(int year, decimal budget, int startMonth, int endMonth, SpendingGroup spendingGroup);
     }
 }

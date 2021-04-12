@@ -17,13 +17,14 @@ namespace VirtualWallet.DAL.Services
             _monthlySpendingDao = monthlySpendingDao;
         }
 
-        public IEnumerable<MonthlySpending> AddInMonthRange(int year, decimal budget, int startMonth, int endMonth)
+        public IEnumerable<MonthlySpending> AddInMonthRange(int year, decimal budget, int startMonth, int endMonth, SpendingGroup spendingGroup)
         {
             var previousMonthlySpending = _monthlySpendingDao.GetLatest();
 
             for (int m = startMonth; m <= endMonth; m++)
             {
-                var justAdded = _monthlySpendingDao.Insert(MonthlySpending.New(budget, year, m, previousMonthlySpending));
+                var monthlySpending = MonthlySpending.New(budget, year, m, spendingGroup, previousMonthlySpending);
+                var justAdded = _monthlySpendingDao.Insert(monthlySpending);
 
                 previousMonthlySpending = justAdded;
 
