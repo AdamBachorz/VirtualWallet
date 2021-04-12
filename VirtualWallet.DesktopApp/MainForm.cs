@@ -9,23 +9,24 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VirtualWallet.ApiConsumer.Interfaces;
 using VirtualWallet.Model.Domain;
+using VirtualWallet.Model.Classes;
 
 namespace VirtualWallet.DesktopApp
 {
     public partial class MainForm : Form
     {
-        private readonly ISpendingGroupApiConsumer _spendingGroupApiConsumer;
+        private readonly IUserApiConsumer _userApiConsumer;
 
-        public MainForm(ISpendingGroupApiConsumer spendingGroupApiConsumer)
+        public MainForm(IUserApiConsumer userApiConsumer)
         {
             InitializeComponent();
 
-            _spendingGroupApiConsumer = spendingGroupApiConsumer;
+            _userApiConsumer = userApiConsumer;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var t = _spendingGroupApiConsumer.GetAll();
+            var t = _userApiConsumer.GetAll();
         }
     }
 }
