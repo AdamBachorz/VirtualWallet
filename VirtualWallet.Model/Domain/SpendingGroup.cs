@@ -9,5 +9,6 @@ namespace VirtualWallet.Model.Domain
         public virtual string Name { get; set; }
         public virtual decimal Budget { get; set; }
         public virtual IEnumerable<ConstantSpending> ConstantSpendings { get; set; }
+        public virtual IEnumerable<MonthlySpending> MonthlySpendings { get; set; }
     }
 }

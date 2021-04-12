@@ -16,6 +16,11 @@ namespace VirtualWallet.Model.Domain.Mappings
                 .Not.LazyLoad()
                 .Inverse()
                 ;
+            HasMany(x => x.MonthlySpendings)
+                .KeyColumn("id_monthly_spending")
+                .Not.LazyLoad()
+                .Inverse()
+                ;
         }
     }
 }

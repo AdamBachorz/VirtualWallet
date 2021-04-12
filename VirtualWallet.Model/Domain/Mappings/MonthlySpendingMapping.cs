@@ -20,6 +20,10 @@ namespace VirtualWallet.Model.Domain.Mappings
                 .Not.LazyLoad()
                 .Inverse()
                 ;
+            References(x => x.SpendingGroup)
+                .Column("id_spending_group")
+                .Not.LazyLoad()
+                ;
         }
     }
 }
