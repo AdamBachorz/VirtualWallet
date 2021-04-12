@@ -32,13 +32,6 @@ namespace VirtualWallet.DesktopApp.Classes.Config
         {
             _container.Register<INHibernateHelper, NHibernateHelper>();
 
-            // DAOs
-            _container.Register<IBaseDao<TestEntity>, TestEntityDao>();
-            _container.Register<ITestEntityDao, TestEntityDao>();
-
-            _container.Register<IBaseDao<UserRole>, UserRoleDao>();
-            _container.Register<IUserRoleDao, UserRoleDao>();
-
             // Services
             _container.Register<IUserService, UserService>();
 

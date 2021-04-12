@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VirtualWallet.Model.Classes;
 
 namespace VirtualWallet.Model.Domain
 {

@@ -9,4 +9,10 @@ namespace VirtualWallet.Model.Classes
         Sequance,
         Guid
     }
+
+    public enum UserRole
+    {
+        Administrator = 1,
+        User = 2,
+    }
 }

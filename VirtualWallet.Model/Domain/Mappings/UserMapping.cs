@@ -12,10 +12,7 @@ namespace VirtualWallet.Model.Domain.Mappings
             Map(x => x.UserName, "user_name");
             Map(x => x.PasswordHash, "password_hash");
             Map(x => x.Email, "email");
-            References(x => x.UserRole)
-                .Column("id_user_role")
-                .Not.LazyLoad()
-                ;
+            Map(x => x.UserRole, "id_user_role").CustomType<Classes.UserRole>();
         }
     }
 }

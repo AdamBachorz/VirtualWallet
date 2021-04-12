@@ -36,8 +36,7 @@ namespace VirtualWallet.DAL.Config
         
         private void Mapping(MappingConfiguration mapping)
         {
-            mapping.FluentMappings.Add<UserRoleMapping>();
-            mapping.FluentMappings.Add<UserMapping>();
+            mapping.FluentMappings.Add<UserMapping>().Conventions.Add<EnumConvention>();
             mapping.FluentMappings.Add<SpendingGroupMapping>();
             mapping.FluentMappings.Add<UserSpendingGroupMapping>();
             mapping.FluentMappings.Add<ConstantSpendingMapping>();
