@@ -11,7 +11,7 @@ namespace VirtualWallet.Model.Domain
         public virtual decimal Budget { get; set; }
         public virtual DateTime? CreationDate { get; set; }
         public virtual MonthlySpending PreviousMonthlySpending { get; set; }
-        public virtual IEnumerable<Spending> Spendings { get; set; }
+        public virtual IList<Spending> Spendings { get; set; }
         public virtual SpendingGroup SpendingGroup { get; set; }
 
 
@@ -34,7 +34,8 @@ namespace VirtualWallet.Model.Domain
                 Budget = budget,
                 SpendingGroup = spendingGroup,
                 PreviousMonthlySpending = previousMonthlySpending,
-                CreationDate = new DateTime(year, month, 1)
+                CreationDate = new DateTime(year, month, 1),
+                Spendings = new List<Spending>() //spendingGroup.ConstantSpendings.Select(cs  => cs.ToSpending())
             };
     }
 }
