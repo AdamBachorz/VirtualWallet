@@ -12,5 +12,7 @@ namespace VirtualWallet.Model.Domain
         public virtual string PasswordHash { get; set; }
         public virtual string Email { get; set; }
         public virtual UserRole UserRole { get; set; }
+
+        public virtual string Greeting => $"Witaj, {UserName}!";
     }
 }
