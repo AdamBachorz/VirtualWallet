@@ -17,7 +17,8 @@ namespace VirtualWallet.Model.Domain
                 Name = this.Name,
                 Value = this.Value,
                 MonthlySpending = monthlySpending,
-                User = user
+                User = user,
+                ConstantSpending = this
             };
         }
     }

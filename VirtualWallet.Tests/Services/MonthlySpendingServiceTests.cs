@@ -30,7 +30,7 @@ namespace VirtualWallet.Tests.Services
         {
             var user = new User { Id = 1 };
             var spendingGroup = new SpendingGroup { Budget = budget };
-            var constantSpendings = Enumerable.Range(1, 2).Select(n => new ConstantSpending { Name = $"CS{n}", Value = n, SpendingGroup = spendingGroup });
+            var constantSpendings = Enumerable.Range(1, 2).Select(n => new ConstantSpending { Id = n, Name = $"CS{n}", Value = n, SpendingGroup = spendingGroup });
 
             var monthlySpendings = Enumerable.Range(startMonth, endMonth - 1)
                 .Select(n => MonthlySpending.New(budget, year, n, spendingGroup, null))
@@ -38,9 +38,9 @@ namespace VirtualWallet.Tests.Services
             spendingGroup.ConstantSpendings = constantSpendings;
             spendingGroup.MonthlySpendings = monthlySpendings;
 
-            monthlySpendings.ForEach(ms => _monthlySpendingDaoMock.Setup(x => x.Insert(It.Is<MonthlySpending>(y => y.Month == ms.Month))).Returns(ms));
-            constantSpendings.ForEach(cs => _spendingDaoMock.Setup(x => x.Insert(cs.ToSpending(It.IsAny<MonthlySpending>(), user)))
-            .Returns(cs.ToSpending(It.IsAny<MonthlySpending>(), user)));
+            monthlySpendings.ForEach(ms => _monthlySpendingDaoMock.Setup(msMock => msMock.Insert(It.Is<MonthlySpending>(x => x.Month == ms.Month))).Returns(ms));
+            constantSpendings.ForEach(cs => _spendingDaoMock.Setup(sMock => sMock.Insert(cs.ToSpending(It.IsAny<MonthlySpending>(), user)))
+                .Returns(cs.ToSpending(It.IsAny<MonthlySpending>(), user)));
             _spendingDaoMock.Setup(x => x.Update(It.IsAny<Spending>())).Verifiable();
 
             var service = new MonthlySpendingService(_monthlySpendingDaoMock.Object, _spendingDaoMock.Object);
@@ -48,7 +48,12 @@ namespace VirtualWallet.Tests.Services
             var addedMonthlySpendings = service.AddInMonthRange(year, budget, startMonth, endMonth, spendingGroup, user);
 
             Assert.That(addedMonthlySpendings.Count(), Is.EqualTo(monthlySpendings.Count()));
-            Assert.That(addedMonthlySpendings.Select(x => x.Month), Is.EqualTo(monthlySpendings.Select(x => x.Month)));
+            Assert.That(addedMonthlySpendings.Select(addMs => addMs.Month), Is.EqualTo(monthlySpendings.Select(ms => ms.Month)));
+
+            foreach (var monthlySpending in addedMonthlySpendings)
+            {
+                Assert.True(monthlySpending.Spendings.All(s => s.ConstantSpending != null));
+            }
 
         }
     }

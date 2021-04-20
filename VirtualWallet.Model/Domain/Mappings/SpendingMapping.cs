@@ -11,12 +11,17 @@ namespace VirtualWallet.Model.Domain.Mappings
         {
             Map(x => x.Name, "name");
             Map(x => x.Value, "value");
+            Map(x => x.CreationDate, "creation_date").Default(DateTime.Now.ToString());
             References(x => x.User)
                 .Column("id_user")
                 .Not.LazyLoad()
                 ;
             References(x => x.MonthlySpending)
                 .Column("id_monthly_spending")
+                .Not.LazyLoad()
+                ;
+            References(x => x.ConstantSpending)
+                .Column("id_constant_spending")
                 .Not.LazyLoad()
                 ;
         }

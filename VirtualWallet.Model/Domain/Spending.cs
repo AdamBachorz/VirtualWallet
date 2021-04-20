@@ -8,7 +8,9 @@ namespace VirtualWallet.Model.Domain
     {
         public virtual string Name { get; set; }
         public virtual decimal Value { get; set; }
+        public virtual DateTime? CreationDate { get; set; }
         public virtual User User { get; set; }
         public virtual MonthlySpending MonthlySpending { get; set; }
+        public virtual ConstantSpending ConstantSpending { get; set; }
     }
 }
