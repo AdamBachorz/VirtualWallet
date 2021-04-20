@@ -16,7 +16,7 @@ namespace VirtualWallet.ApiConsumer
     {
         protected IUserDao _userDao;
 
-        public UserApiConsumer(ICustomConfig customConfig, IUserService userService, IUserDao userDao) : base(customConfig, userService)
+        public UserApiConsumer(ICustomConfig customConfig, IUserContainer userContainer, IUserDao userDao) : base(customConfig, userContainer)
         {
             _userDao = userDao;
         }

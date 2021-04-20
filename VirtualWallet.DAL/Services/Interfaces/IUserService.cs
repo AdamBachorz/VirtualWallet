@@ -7,7 +7,7 @@ namespace VirtualWallet.DAL.Services.Interfaces
 {
     public interface IUserService
     {
-        bool IsValidUser(string username, string password);
-        NetworkCredential UserCredential();
+        bool IsValidUser(NetworkCredential credential);
+        bool IsAdmin(NetworkCredential credential);
     }
 }

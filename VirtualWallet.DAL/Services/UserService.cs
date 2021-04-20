@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using VirtualWallet.Common.Extensions;
+using VirtualWallet.DAL.Daos.Interfaces;
 using VirtualWallet.DAL.Services.Interfaces;
+using VirtualWallet.Model.Classes;
 using VirtualWallet.Model.Classes.Extensions;
 using VirtualWallet.Model.Domain;
 
@@ -10,29 +13,40 @@ namespace VirtualWallet.DAL.Services
 {
     public class UserService : IUserService
     {
-        private static User _correct = new User
-        {
-            UserName = "test",
-            PasswordHash = "test123"
-        };
+        private IUserDao _userDao;
 
-        public bool IsValidUser(string username, string password)
+        public UserService(IUserDao userDao)
         {
-            // TBE - user verify 
-
-            return username.Equals(_correct.UserName) && password.Equals(_correct.PasswordHash);
+            _userDao = userDao;
         }
 
-        public NetworkCredential UserCredential()
+        public bool IsValidUser(NetworkCredential credential)
         {
-            if (IsValidUser(_correct.UserName, _correct.PasswordHash))
+            var user = _userDao.GetByCredential(credential);
+
+            if (user is null)
             {
-                return _correct.ToNetworkCredential();
+                return false;
             }
-            else 
+
+            var userIsValid = credential.UserName.Equals(user.UserName)
+                && credential.Password.Encrypt().Equals(user.PasswordHash);
+
+            return userIsValid || IsAdmin(credential);
+        }
+
+        public bool IsAdmin(NetworkCredential credential)
+        {
+            var user = _userDao.GetByCredential(credential);
+
+            if (user is null)
             {
-                throw new UnauthorizedAccessException();
+                return false;
             }
+
+            return credential.UserName.Equals(user.UserName)
+                && credential.Password.Encrypt().Equals(user.PasswordHash) 
+                && user.UserRole == UserRole.Administrator;
         }
 
     }

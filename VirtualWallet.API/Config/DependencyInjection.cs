@@ -43,11 +43,9 @@ namespace VirtualWallet.API.Config
             services.AddScoped<IMonthlySpendingDao, MonthlySpendingDao>();
 
             // Services
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<DAL.Services.Interfaces.IUserService, UserService>();
 
             // API consumers
-            services.AddScoped<IBaseApiConsumer<TestEntity>, TestEntityApiConsumer>();
-            services.AddScoped<ITestEntityApiConsumer, TestEntityApiConsumer>();
         }
     }
 }

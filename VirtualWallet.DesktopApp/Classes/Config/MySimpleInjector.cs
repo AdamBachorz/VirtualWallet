@@ -31,6 +31,7 @@ namespace VirtualWallet.DesktopApp.Classes.Config
         public void Register()
         {
             _container.Register<INHibernateHelper, NHibernateHelper>();
+            _container.RegisterInstance<IUserContainer>(UserContainer.Instance);
 
             // DAOs
             _container.Register<IBaseDao<User>, UserDao>();
@@ -40,9 +41,6 @@ namespace VirtualWallet.DesktopApp.Classes.Config
             _container.Register<IUserService, UserService>();
 
             // API consumers
-            _container.Register<IBaseApiConsumer<TestEntity>, TestEntityApiConsumer>();
-            _container.Register<ITestEntityApiConsumer, TestEntityApiConsumer>();
-
             _container.Register<IBaseApiConsumer<SpendingGroup>, SpendingGroupApiConsumer>();
             _container.Register<ISpendingGroupApiConsumer, SpendingGroupApiConsumer>();
 

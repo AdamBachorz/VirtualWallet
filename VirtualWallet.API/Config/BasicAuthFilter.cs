@@ -8,16 +8,19 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using VirtualWallet.Common.Utils;
 using VirtualWallet.DAL.Services.Interfaces;
 
 namespace VirtualWallet.API.Config
 {
     public class BasicAuthFilter : IAuthorizationFilter
     {
+        private readonly bool _adminAccess;
         private readonly string _realm;
 
-        public BasicAuthFilter(string realm)
+        public BasicAuthFilter(bool adminAccess, string realm)
         {
+            _adminAccess = adminAccess;
             _realm = realm;
             if (string.IsNullOrWhiteSpace(_realm))
             {
@@ -29,23 +32,11 @@ namespace VirtualWallet.API.Config
         {
             try
             {
-                string authHeader = context.HttpContext.Request.Headers["Authorization"];
-                if (authHeader != null)
+                var credential = StringUtils.DecodeBaseToken(context.HttpContext.Request.Headers["Authorization"]);
+
+                if (IsAuthorized(context, credential, _adminAccess))
                 {
-                    var authHeaderValue = AuthenticationHeaderValue.Parse(authHeader);
-                    if (authHeaderValue.Scheme.Equals(AuthenticationSchemes.Basic.ToString(), StringComparison.OrdinalIgnoreCase))
-                    {
-                        var credentials = Encoding.UTF8
-                                            .GetString(Convert.FromBase64String(authHeaderValue.Parameter ?? string.Empty))
-                                            .Split(':', 2);
-                        if (credentials.Length == 2)
-                        {
-                            if (IsAuthorized(context, credentials[0], credentials[1]))
-                            {
-                                return;
-                            }
-                        }
-                    }
+                    return;
                 }
 
                 ReturnUnauthorizedResult(context);
@@ -56,10 +47,16 @@ namespace VirtualWallet.API.Config
             }
         }
 
-        public bool IsAuthorized(AuthorizationFilterContext context, string username, string password)
+        public bool IsAuthorized(AuthorizationFilterContext context, NetworkCredential credential, bool adminAccess)
         {
             var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-            return userService.IsValidUser(username, password);
+
+           if (adminAccess)
+            {
+                return userService.IsAdmin(credential);
+            }
+
+            return userService.IsValidUser(credential);
         }
 
         private void ReturnUnauthorizedResult(AuthorizationFilterContext context)

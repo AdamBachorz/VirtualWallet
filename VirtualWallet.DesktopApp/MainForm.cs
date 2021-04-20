@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using VirtualWallet.ApiConsumer.Interfaces;
 using VirtualWallet.Model.Domain;
 using VirtualWallet.Model.Classes;
+using VirtualWallet.DAL.Daos.Interfaces;
+using System.Net;
+using VirtualWallet.DesktopApp.Classes;
 
 namespace VirtualWallet.DesktopApp
 {
@@ -26,6 +29,9 @@ namespace VirtualWallet.DesktopApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            var credential = new NetworkCredential("admin", "admintest");
+
+            _userApiConsumer.SetAuthorization(credential);
             var t = _userApiConsumer.GetAll();
         }
     }

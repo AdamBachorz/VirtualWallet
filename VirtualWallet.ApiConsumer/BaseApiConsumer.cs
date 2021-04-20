@@ -16,19 +16,19 @@ namespace VirtualWallet.ApiConsumer
     public abstract class BaseApiConsumer<E> : IBaseApiConsumer<E> where E : Entity
     {
         protected readonly ICustomConfig _customConfig;
-        protected readonly IUserService _userService;
+        protected readonly IUserContainer _userContainer;
         protected ApiConnection _apiConnection;
 
-        public BaseApiConsumer(ICustomConfig customConfig, IUserService userService)
+        public BaseApiConsumer(ICustomConfig customConfig, IUserContainer userContainer)
         {
             _customConfig = customConfig;
-            _userService = userService;
+            _userContainer = userContainer;
 
             _apiConnection = new ApiConnection
             {
                 Host = _customConfig.IsProduction ? RemoteHostUrl : TestSslHostUrl,
                 UseSSL = _customConfig.IsProduction,
-                Credential = _userService.UserCredential(),
+                Credential = _userContainer.Credential(),
                 EntityName = typeof(E).Name
             };
         }
@@ -36,6 +36,11 @@ namespace VirtualWallet.ApiConsumer
         public string TestHostUrl { get; } = "https://localhost:5001/api";
         public string TestSslHostUrl { get; } = "https://localhost:44367/api";
         public string RemoteHostUrl { get; } = ""; // TBE
+
+        public void SetAuthorization(NetworkCredential networkCredential)
+        {
+            _apiConnection.Credential = networkCredential;
+        }
 
         public IList<E> GetAll()
         {

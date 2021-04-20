@@ -10,7 +10,7 @@ namespace VirtualWallet.Model.Domain
         public virtual decimal Value { get; set; }
         public virtual SpendingGroup SpendingGroup { get; set; }
 
-        public Spending ToSpending(MonthlySpending monthlySpending, User user)
+        public virtual Spending ToSpending(MonthlySpending monthlySpending, User user)
         {
             return new Spending
             {

@@ -12,9 +12,8 @@ namespace VirtualWallet.ApiConsumer
 {
     public class SpendingGroupApiConsumer : BaseApiConsumer<SpendingGroup>, ISpendingGroupApiConsumer
     {
-        public SpendingGroupApiConsumer(ICustomConfig customConfig, IUserService userService) : base(customConfig, userService)
+        public SpendingGroupApiConsumer(ICustomConfig customConfig, IUserContainer userContainer) : base(customConfig, userContainer)
         {
         }
-
     }
 }
