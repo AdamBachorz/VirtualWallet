@@ -3,41 +3,58 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Net;
+using System.Security;
 using System.Text;
 using System.Windows.Forms;
 using VirtualWallet.ApiConsumer.Interfaces;
 using VirtualWallet.DesktopApp.Classes;
+using VirtualWallet.Common.Extensions;
 
 namespace VirtualWallet.DesktopApp.OtherForms
 {
     public partial class LoginForm : Form
     {
         private readonly IUserApiConsumer _userApiConsumer;
+        private readonly ISpendingGroupApiConsumer _spendingGroupApiConsumer;
         private readonly Action _onSuccessLogIn;
 
-        public LoginForm(IUserApiConsumer userApiConsumer, Action onSuccessLogIn)
+        public LoginForm(IUserApiConsumer userApiConsumer, ISpendingGroupApiConsumer spendingGroupApiConsumer, Action onSuccessLogIn)
         {
             InitializeComponent();
             _userApiConsumer = userApiConsumer;
+            _spendingGroupApiConsumer = spendingGroupApiConsumer;
             _onSuccessLogIn = onSuccessLogIn;
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             var login = textBoxLogin.Text;
-            var password = textBoxPassword.Text;
+            SecureString password = null;
+            unsafe
+            {
+                fixed (char* s = textBoxPassword.Text)
+                {
+                   password = new SecureString(s, textBoxPassword.Text.Length);  
+                }
+            }
             var credential = new NetworkCredential(login, password);
 
             _userApiConsumer.SetAuthorization(credential);
-            var user = _userApiConsumer.GetByCredentials(login, password);
+            var user = _userApiConsumer.GetByToken(credential.BuildBase64Token());
 
             if (user != null)
             {
                 CommonPool.Credential = credential;
                 CommonPool.CurrentUser = user;
                 _onSuccessLogIn();
-                Dispose();
+
+                _spendingGroupApiConsumer.SetAuthorization(CommonPool.Credential);
+                var spengingGroups = _spendingGroupApiConsumer.GetForUser(CommonPool.CurrentUser.Id).ToList();
+
+                var spendingGroupForm = new SpendingGroupForm(spengingGroups, this);
+                spendingGroupForm.Show();
             }
             else
             {

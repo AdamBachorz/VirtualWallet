@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using VirtualWallet.Common.Extensions;
+using VirtualWallet.Common.Utils;
 using VirtualWallet.DAL.Daos.Interfaces;
 using VirtualWallet.DAL.Services.Interfaces;
 using VirtualWallet.Model.Classes;
@@ -49,5 +50,9 @@ namespace VirtualWallet.DAL.Services
                 && user.UserRole == UserRole.Administrator;
         }
 
+        public User GetByToken(string token)
+        {
+            return _userDao.GetByCredential(StringUtils.DecodeBaseToken(token));
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace VirtualWallet.DAL.Daos.Interfaces
 {
     public interface ISpendingGroupDao : IBaseDao<SpendingGroup>
     {
+        IList<SpendingGroup> GetForUser(int userId);
     }
 }

@@ -24,14 +24,14 @@ namespace VirtualWallet.ApiConsumer
             _userService = userService;
         }
 
-        public User GetByCredentials(string login, string password)
+        public User GetByToken(string token)
         {
             try
             {
                 _apiConnection.AuthenticationType = AuthenticationType.NoAuth;
                 var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<User>
                 {
-                    MethodName = $"{ControllerSimpleName}/get/{login}/{password}",
+                    MethodName = $"{ControllerSimpleName}/get/{token}",
                     MethodType = MethodType.Get,
                     ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<User>(jsonResult)
                 });
