@@ -20,12 +20,14 @@ namespace VirtualWallet.DesktopApp
     public partial class MainForm : Form
     {
         private readonly IUserApiConsumer _userApiConsumer;
+        private readonly ISpendingGroupApiConsumer _spendingGroupApiConsumer;
 
-        public MainForm(IUserApiConsumer userApiConsumer)
+        public MainForm(IUserApiConsumer userApiConsumer, ISpendingGroupApiConsumer spendingGroupApiConsumer)
         {
             InitializeComponent();
 
             _userApiConsumer = userApiConsumer;
+            _spendingGroupApiConsumer = spendingGroupApiConsumer;
         }
 
         private void UpdateControls()
@@ -53,7 +55,7 @@ namespace VirtualWallet.DesktopApp
 
         private void buttonLogIn_Click(object sender, EventArgs e)
         {
-            var loginForm = new LoginForm(_userApiConsumer, () => UpdateControls());
+            var loginForm = new LoginForm(_userApiConsumer, _spendingGroupApiConsumer, () => UpdateControls());
             loginForm.Show();
         }
 

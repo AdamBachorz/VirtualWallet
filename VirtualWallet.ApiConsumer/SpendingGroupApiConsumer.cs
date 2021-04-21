@@ -15,5 +15,25 @@ namespace VirtualWallet.ApiConsumer
         public SpendingGroupApiConsumer(ICustomConfig customConfig, IUserContainer userContainer) : base(customConfig, userContainer)
         {
         }
+
+        public IList<SpendingGroup> GetForUser(int userId)
+        {
+            try
+            {
+                var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<List<SpendingGroup>>
+                {
+                    MethodName = $"{ControllerSimpleName}/foruser/{userId}",
+                    MethodType = MethodType.Get,
+                    ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<List<SpendingGroup>>(jsonResult)
+                });
+
+                return apiResponse.Response;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

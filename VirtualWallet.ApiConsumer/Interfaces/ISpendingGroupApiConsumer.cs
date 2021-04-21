@@ -7,5 +7,6 @@ namespace VirtualWallet.ApiConsumer.Interfaces
 {
     public interface ISpendingGroupApiConsumer : IBaseApiConsumer<SpendingGroup>
     {
+        IList<SpendingGroup> GetForUser(int userId);
     }
 }
