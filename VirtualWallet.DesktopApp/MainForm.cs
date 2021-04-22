@@ -14,6 +14,7 @@ using VirtualWallet.DAL.Daos.Interfaces;
 using System.Net;
 using VirtualWallet.DesktopApp.Classes;
 using VirtualWallet.DesktopApp.OtherForms;
+using VirtualWallet.DesktopApp.Views;
 
 namespace VirtualWallet.DesktopApp
 {
@@ -50,7 +51,11 @@ namespace VirtualWallet.DesktopApp
 
         private void UpdateSpendingTable()
         {
-            dataGridViewSpendings.DataSource = CommonPool.MonthlySpending.Spendings;
+
+            var spendingViews = CommonPool.MonthlySpending.Spendings.Select(s => new SpendingView(s));
+
+            flowLayoutPanel1.Controls.AddRange(spendingViews.ToArray());
+
         }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -32,9 +32,8 @@ namespace VirtualWallet.DesktopApp
             this.buttonLogIn = new System.Windows.Forms.Button();
             this.buttonLogOut = new System.Windows.Forms.Button();
             this.labelHello = new System.Windows.Forms.Label();
-            this.dataGridViewSpendings = new System.Windows.Forms.DataGridView();
             this.labelTitle = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSpendings)).BeginInit();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // buttonLogIn
@@ -69,15 +68,6 @@ namespace VirtualWallet.DesktopApp
             this.labelHello.Text = "Witaj !";
             this.labelHello.Visible = false;
             // 
-            // dataGridViewSpendings
-            // 
-            this.dataGridViewSpendings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewSpendings.Location = new System.Drawing.Point(65, 32);
-            this.dataGridViewSpendings.Name = "dataGridViewSpendings";
-            this.dataGridViewSpendings.RowTemplate.Height = 25;
-            this.dataGridViewSpendings.Size = new System.Drawing.Size(448, 349);
-            this.dataGridViewSpendings.TabIndex = 3;
-            // 
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
@@ -87,20 +77,26 @@ namespace VirtualWallet.DesktopApp
             this.labelTitle.TabIndex = 4;
             this.labelTitle.Text = "Month xxxx";
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(29, 23);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(521, 400);
+            this.flowLayoutPanel1.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.dataGridViewSpendings);
             this.Controls.Add(this.labelHello);
             this.Controls.Add(this.buttonLogOut);
             this.Controls.Add(this.buttonLogIn);
             this.Name = "MainForm";
             this.Text = "VirtualWallet";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSpendings)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -111,8 +107,8 @@ namespace VirtualWallet.DesktopApp
         private System.Windows.Forms.Button buttonLogIn;
         private System.Windows.Forms.Button buttonLogOut;
         private System.Windows.Forms.Label labelHello;
-        private System.Windows.Forms.DataGridView dataGridViewSpendings;
         private System.Windows.Forms.Label labelTitle;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 
