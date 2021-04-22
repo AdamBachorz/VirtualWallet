@@ -11,6 +11,10 @@ namespace VirtualWallet.Model.Domain.Mappings
         {
             Map(x => x.Budget, "budget");
             Map(x => x.CreationDate, "creation_date");
+            References(x => x.SpendingGroup)
+               .Column("id_spending_group")
+               .Not.LazyLoad()
+               ;
             References(x => x.PreviousMonthlySpending)
                 .Column("id_monthly_spending")
                 .Not.LazyLoad()
@@ -20,10 +24,7 @@ namespace VirtualWallet.Model.Domain.Mappings
                 .Not.LazyLoad()
                 .Inverse()
                 ;
-            References(x => x.SpendingGroup)
-                .Column("id_spending_group")
-                .Not.LazyLoad()
-                ;
+           
         }
     }
 }

@@ -12,12 +12,14 @@ namespace VirtualWallet.DesktopApp.Classes
         public static NetworkCredential Credential { get; set; }
         public static User CurrentUser { get; set; }
         public static SpendingGroup SpendingGroup { get; set; }
+        public static MonthlySpending MonthlySpending { get; set; }
 
         public static void DisposeUser()
         {
             Credential = null;
             CurrentUser = null;
             SpendingGroup = null;
+            MonthlySpending = null;
         }
 
         public static bool UserIsLoggedIn => CurrentUser != null;

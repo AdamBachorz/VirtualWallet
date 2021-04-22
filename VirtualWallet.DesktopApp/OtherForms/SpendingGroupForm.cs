@@ -15,14 +15,14 @@ namespace VirtualWallet.DesktopApp.OtherForms
     {
         private readonly IList<SpendingGroup> _spendingGroups;
         private readonly LoginForm _loginForm;
-        private readonly DataGridView _dataGridViewSpendings;
+        private readonly Action _onSuccessSpendingGroupPick;
 
-        public SpendingGroupForm(IList<SpendingGroup> spendingGroups, LoginForm loginForm, DataGridView dataGridViewSpendings)
+        public SpendingGroupForm(IList<SpendingGroup> spendingGroups, LoginForm loginForm, Action onSuccessSpendingGroupPick)
         {
             InitializeComponent();
             _spendingGroups = spendingGroups;
             _loginForm = loginForm;
-            _dataGridViewSpendings = dataGridViewSpendings;
+            _onSuccessSpendingGroupPick = onSuccessSpendingGroupPick;
         }
 
         private void SpendingGroupForm_Load(object sender, EventArgs e)
@@ -52,8 +52,10 @@ namespace VirtualWallet.DesktopApp.OtherForms
                 var now = DateTime.Now;
                 var currentMonthlySpending = CommonPool.SpendingGroup.MonthlySpendings
                     .FirstOrDefault(ms => ms.Month == now.Month && ms.Year == now.Year);
-                var spendingsForCurrentMonth = currentMonthlySpending.Spendings;
-                _dataGridViewSpendings.DataSource = spendingsForCurrentMonth;
+                CommonPool.MonthlySpending = currentMonthlySpending;
+
+                var spendingsForCurrentMonth = CommonPool.MonthlySpending.Spendings;
+                _onSuccessSpendingGroupPick();
 
                 _loginForm.Dispose();
                 Dispose();

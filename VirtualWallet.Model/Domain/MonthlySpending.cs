@@ -17,7 +17,7 @@ namespace VirtualWallet.Model.Domain
 
         public virtual int Month => CreationDate?.Month ?? 0;
 
-        public virtual  int Year => CreationDate?.Year ?? 0;
+        public virtual int Year => CreationDate?.Year ?? 0;
 
         public virtual string Title => $"{CreationDate?.GetMonthName()} {Year}";
 

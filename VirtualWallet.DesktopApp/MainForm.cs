@@ -48,6 +48,11 @@ namespace VirtualWallet.DesktopApp
             }
         }
 
+        private void UpdateSpendingTable()
+        {
+            dataGridViewSpendings.DataSource = CommonPool.MonthlySpending.Spendings;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             UpdateControls();
@@ -55,7 +60,7 @@ namespace VirtualWallet.DesktopApp
 
         private void buttonLogIn_Click(object sender, EventArgs e)
         {
-            var loginForm = new LoginForm(_userApiConsumer, _spendingGroupApiConsumer, dataGridViewSpendings, () => UpdateControls());
+            var loginForm = new LoginForm(_userApiConsumer, _spendingGroupApiConsumer, () => UpdateControls(), () => UpdateSpendingTable());
             loginForm.Show();
         }
 
