@@ -25,7 +25,18 @@ namespace VirtualWallet.DesktopApp.Classes.Config
 
         public void RegisterSingleton()
         {
-            _container.RegisterInstance<ICustomConfig>(new CustomConfig(false, "User ID=ikpsbjrr;Password=PD3VF_f8PgDU6GMEFcsDwuxsOrSomjnT;Host=tai.db.elephantsql.com;Port=5432;Database=ikpsbjrr;Pooling=true;"));
+            var isProduction = false;
+
+            #if !Debug
+                isProduction = true;
+            #endif
+
+            var prefix = isProduction ? "Production" : "Development";
+            var connectionStringName = prefix + "ConnectionString"; // Init App.config
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
+
+            _container.RegisterInstance<ICustomConfig>(new CustomConfig(isProduction, connectionString));
+            //_container.RegisterInstance<ICustomConfig>(new CustomConfig(false, "User ID=ikpsbjrr;Password=PD3VF_f8PgDU6GMEFcsDwuxsOrSomjnT;Host=tai.db.elephantsql.com;Port=5432;Database=ikpsbjrr;Pooling=true;"));
         }
 
         public void Register()
