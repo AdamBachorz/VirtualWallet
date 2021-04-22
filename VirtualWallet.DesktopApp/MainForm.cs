@@ -21,13 +21,16 @@ namespace VirtualWallet.DesktopApp
     public partial class MainForm : Form
     {
         private readonly IUserApiConsumer _userApiConsumer;
+        private readonly ISpendingApiConsumer _spendingApiConsumer;
         private readonly ISpendingGroupApiConsumer _spendingGroupApiConsumer;
 
-        public MainForm(IUserApiConsumer userApiConsumer, ISpendingGroupApiConsumer spendingGroupApiConsumer)
+        public MainForm(IUserApiConsumer userApiConsumer, ISpendingApiConsumer spendingApiConsumer, 
+            ISpendingGroupApiConsumer spendingGroupApiConsumer)
         {
             InitializeComponent();
 
             _userApiConsumer = userApiConsumer;
+            _spendingApiConsumer = spendingApiConsumer;
             _spendingGroupApiConsumer = spendingGroupApiConsumer;
         }
 
@@ -39,6 +42,8 @@ namespace VirtualWallet.DesktopApp
                 labelHello.Text = CommonPool.CurrentUser.Greeting;
                 buttonLogOut.Visible = true;
                 buttonLogIn.Visible = false;
+
+                _spendingApiConsumer.SetAuthorization(CommonPool.Credential);
             }
             else
             {
@@ -46,13 +51,14 @@ namespace VirtualWallet.DesktopApp
                 labelHello.Text = string.Empty;
                 buttonLogOut.Visible = false;
                 buttonLogIn.Visible = true;
+                flowLayoutPanel1.Controls.Clear();
             }
         }
 
         private void UpdateSpendingTable()
         {
 
-            var spendingViews = CommonPool.MonthlySpending.Spendings.Select(s => new SpendingView(s));
+            var spendingViews = CommonPool.MonthlySpending.Spendings.Select(s => new SpendingView(s, _spendingApiConsumer));
 
             flowLayoutPanel1.Controls.AddRange(spendingViews.ToArray());
 

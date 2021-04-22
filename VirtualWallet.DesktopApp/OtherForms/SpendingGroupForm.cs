@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using VirtualWallet.DesktopApp.Classes;
 using VirtualWallet.Model.Domain;
+using VirtualWallet.Common.Extensions;
 
 namespace VirtualWallet.DesktopApp.OtherForms
 {
@@ -47,12 +48,15 @@ namespace VirtualWallet.DesktopApp.OtherForms
                     MessageBox.Show("Coś poszło nie tak");
                 }
 
+
                 CommonPool.SpendingGroup = spendingGroup;
 
                 var now = DateTime.Now;
                 var currentMonthlySpending = CommonPool.SpendingGroup.MonthlySpendings
                     .FirstOrDefault(ms => ms.Month == now.Month && ms.Year == now.Year);
+                //currentMonthlySpending.Spendings.ForEach(s => s.MonthlySpending = currentMonthlySpending); // Figure out why we have to do that
                 CommonPool.MonthlySpending = currentMonthlySpending;
+
 
                 var spendingsForCurrentMonth = CommonPool.MonthlySpending.Spendings;
                 _onSuccessSpendingGroupPick();

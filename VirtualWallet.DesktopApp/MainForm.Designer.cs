@@ -38,7 +38,7 @@ namespace VirtualWallet.DesktopApp
             // 
             // buttonLogIn
             // 
-            this.buttonLogIn.Location = new System.Drawing.Point(703, 12);
+            this.buttonLogIn.Location = new System.Drawing.Point(922, 10);
             this.buttonLogIn.Name = "buttonLogIn";
             this.buttonLogIn.Size = new System.Drawing.Size(75, 23);
             this.buttonLogIn.TabIndex = 0;
@@ -49,7 +49,7 @@ namespace VirtualWallet.DesktopApp
             // 
             // buttonLogOut
             // 
-            this.buttonLogOut.Location = new System.Drawing.Point(703, 42);
+            this.buttonLogOut.Location = new System.Drawing.Point(922, 40);
             this.buttonLogOut.Name = "buttonLogOut";
             this.buttonLogOut.Size = new System.Drawing.Size(75, 23);
             this.buttonLogOut.TabIndex = 1;
@@ -61,7 +61,7 @@ namespace VirtualWallet.DesktopApp
             // labelHello
             // 
             this.labelHello.AutoSize = true;
-            this.labelHello.Location = new System.Drawing.Point(619, 46);
+            this.labelHello.Location = new System.Drawing.Point(838, 44);
             this.labelHello.Name = "labelHello";
             this.labelHello.Size = new System.Drawing.Size(40, 15);
             this.labelHello.TabIndex = 2;
@@ -71,7 +71,7 @@ namespace VirtualWallet.DesktopApp
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
-            this.labelTitle.Location = new System.Drawing.Point(603, 166);
+            this.labelTitle.Location = new System.Drawing.Point(822, 164);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(70, 15);
             this.labelTitle.TabIndex = 4;
@@ -79,16 +79,16 @@ namespace VirtualWallet.DesktopApp
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(29, 23);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(81, 61);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(521, 400);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(635, 404);
             this.flowLayoutPanel1.TabIndex = 5;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1006, 569);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.labelHello);

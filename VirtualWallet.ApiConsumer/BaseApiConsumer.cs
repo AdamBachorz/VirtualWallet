@@ -130,7 +130,7 @@ namespace VirtualWallet.ApiConsumer
                 MethodName = $"{ControllerSimpleName}/{entity.Id}",
                 MethodType = MethodType.Put,
                 InputBody = JsonConvert.SerializeObject(entity),
-                ContentType = ContentType.json
+                ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<E>(jsonResult)
             });
         }
 
