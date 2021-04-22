@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using VirtualWallet.DesktopApp.Classes;
@@ -14,12 +15,14 @@ namespace VirtualWallet.DesktopApp.OtherForms
     {
         private readonly IList<SpendingGroup> _spendingGroups;
         private readonly LoginForm _loginForm;
+        private readonly DataGridView _dataGridViewSpendings;
 
-        public SpendingGroupForm(IList<SpendingGroup> spendingGroups, LoginForm loginForm)
+        public SpendingGroupForm(IList<SpendingGroup> spendingGroups, LoginForm loginForm, DataGridView dataGridViewSpendings)
         {
             InitializeComponent();
             _spendingGroups = spendingGroups;
             _loginForm = loginForm;
+            _dataGridViewSpendings = dataGridViewSpendings;
         }
 
         private void SpendingGroupForm_Load(object sender, EventArgs e)
@@ -45,6 +48,13 @@ namespace VirtualWallet.DesktopApp.OtherForms
                 }
 
                 CommonPool.SpendingGroup = spendingGroup;
+
+                var now = DateTime.Now;
+                var currentMonthlySpending = CommonPool.SpendingGroup.MonthlySpendings
+                    .FirstOrDefault(ms => ms.Month == now.Month && ms.Year == now.Year);
+                var spendingsForCurrentMonth = currentMonthlySpending.Spendings;
+                _dataGridViewSpendings.DataSource = spendingsForCurrentMonth;
+
                 _loginForm.Dispose();
                 Dispose();
             }

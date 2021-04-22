@@ -18,13 +18,15 @@ namespace VirtualWallet.DesktopApp.OtherForms
     {
         private readonly IUserApiConsumer _userApiConsumer;
         private readonly ISpendingGroupApiConsumer _spendingGroupApiConsumer;
+        private readonly DataGridView _dataGridViewSpendings;
         private readonly Action _onSuccessLogIn;
 
-        public LoginForm(IUserApiConsumer userApiConsumer, ISpendingGroupApiConsumer spendingGroupApiConsumer, Action onSuccessLogIn)
+        public LoginForm(IUserApiConsumer userApiConsumer, ISpendingGroupApiConsumer spendingGroupApiConsumer, DataGridView dataGridViewSpendings, Action onSuccessLogIn)
         {
             InitializeComponent();
             _userApiConsumer = userApiConsumer;
             _spendingGroupApiConsumer = spendingGroupApiConsumer;
+            _dataGridViewSpendings = dataGridViewSpendings;
             _onSuccessLogIn = onSuccessLogIn;
         }
 
@@ -53,7 +55,7 @@ namespace VirtualWallet.DesktopApp.OtherForms
                 _spendingGroupApiConsumer.SetAuthorization(CommonPool.Credential);
                 var spengingGroups = _spendingGroupApiConsumer.GetForUser(CommonPool.CurrentUser.Id).ToList();
 
-                var spendingGroupForm = new SpendingGroupForm(spengingGroups, this);
+                var spendingGroupForm = new SpendingGroupForm(spengingGroups, this, _dataGridViewSpendings);
                 spendingGroupForm.Show();
             }
             else

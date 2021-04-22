@@ -55,7 +55,7 @@ namespace VirtualWallet.DesktopApp
 
         private void buttonLogIn_Click(object sender, EventArgs e)
         {
-            var loginForm = new LoginForm(_userApiConsumer, _spendingGroupApiConsumer, () => UpdateControls());
+            var loginForm = new LoginForm(_userApiConsumer, _spendingGroupApiConsumer, dataGridViewSpendings, () => UpdateControls());
             loginForm.Show();
         }
 
