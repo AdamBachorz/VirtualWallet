@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VirtualWallet.API.Classes;
 using VirtualWallet.API.Classes.Extensions;
 using VirtualWallet.API.Config;
 using VirtualWallet.DAL.Daos.Interfaces;
@@ -29,8 +30,9 @@ namespace VirtualWallet.API.Controllers
         {
             try
             {
-                //_logger
+                _logger.LogInformation($"Pobieranie listy wydatków na podstawie ID miesięcznego wydatku ({monthlySpendingId})");
                 var result = _spendingDao.GetSpendingsForMonthlySpending(monthlySpendingId);
+                _logger.LogSuccess();
                 return result;
             }
             catch (Exception ex)

@@ -23,15 +23,17 @@ namespace VirtualWallet.DesktopApp
         private readonly IUserApiConsumer _userApiConsumer;
         private readonly ISpendingApiConsumer _spendingApiConsumer;
         private readonly ISpendingGroupApiConsumer _spendingGroupApiConsumer;
+        private readonly IMonthlySpendingApiConsumer _monthlySpendingApiConsumer;
 
-        public MainForm(IUserApiConsumer userApiConsumer, ISpendingApiConsumer spendingApiConsumer, 
-            ISpendingGroupApiConsumer spendingGroupApiConsumer)
+        public MainForm(IUserApiConsumer userApiConsumer, ISpendingApiConsumer spendingApiConsumer,
+            ISpendingGroupApiConsumer spendingGroupApiConsumer, IMonthlySpendingApiConsumer monthlySpendingApiConsumer)
         {
             InitializeComponent();
 
             _userApiConsumer = userApiConsumer;
             _spendingApiConsumer = spendingApiConsumer;
             _spendingGroupApiConsumer = spendingGroupApiConsumer;
+            _monthlySpendingApiConsumer = monthlySpendingApiConsumer;
         }
 
         private void UpdateControls()

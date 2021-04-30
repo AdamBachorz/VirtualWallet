@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VirtualWallet.API.Classes.Extensions;
+using VirtualWallet.API.Config;
 using VirtualWallet.DAL.Daos.Interfaces;
 using VirtualWallet.Model.Domain;
 
@@ -19,6 +21,24 @@ namespace VirtualWallet.API.Controllers
         public MonthlySpendingController(ILogger<MonthlySpendingController> logger, IBaseDao<MonthlySpending> baseDao, IMonthlySpendingDao monthlySpendingDao) : base(logger, baseDao)
         {
             _monthlySpendingDao = monthlySpendingDao;
+        }
+
+        [HttpGet("bymonthandyear/{month}/{year}")]
+        [BasicAuth]
+        public MonthlySpending GetByMonthAndYear(int month, int year)
+        {
+            try
+            {
+                _logger.LogInformation($"Pobieranie miesięcznego wydatku na podstawie miesiąca {month} i roku {year}");
+                var result = _monthlySpendingDao.GetByMonthAndYear(month, year);
+                _logger.LogSuccess();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex);
+                throw;
+            }
         }
     }
 }

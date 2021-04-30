@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using VirtualWallet.Model.Domain;
 
-namespace VirtualWallet.DAL.Daos.Interfaces
+namespace VirtualWallet.ApiConsumer.Interfaces
 {
-    public interface IMonthlySpendingDao : IBaseDao<MonthlySpending>
+    public interface IMonthlySpendingApiConsumer : IBaseApiConsumer<MonthlySpending>
     {
         MonthlySpending GetByMonthAndYear(int month, int year);
     }

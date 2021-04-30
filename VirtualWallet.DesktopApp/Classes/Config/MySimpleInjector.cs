@@ -58,6 +58,9 @@ namespace VirtualWallet.DesktopApp.Classes.Config
             _container.Register<IBaseApiConsumer<Spending>, SpendingApiConsumer>();
             _container.Register<ISpendingApiConsumer, SpendingApiConsumer>();
 
+            _container.Register<IBaseApiConsumer<MonthlySpending>, MonthlySpendingApiConsumer>();
+            _container.Register<IMonthlySpendingApiConsumer, MonthlySpendingApiConsumer>();
+
             _container.Register<IBaseApiConsumer<User>, UserApiConsumer>();
             _container.Register<IUserApiConsumer, UserApiConsumer>();
 
