@@ -9,18 +9,22 @@ using System.Windows.Forms;
 using VirtualWallet.DesktopApp.Classes;
 using VirtualWallet.Model.Domain;
 using VirtualWallet.Common.Extensions;
+using VirtualWallet.ApiConsumer.Interfaces;
 
 namespace VirtualWallet.DesktopApp.OtherForms
 {
     public partial class SpendingGroupForm : Form
     {
+        private readonly ISpendingApiConsumer _spendingApiConsumer;
         private readonly IList<SpendingGroup> _spendingGroups;
         private readonly LoginForm _loginForm;
         private readonly Action _onSuccessSpendingGroupPick;
+        
 
-        public SpendingGroupForm(IList<SpendingGroup> spendingGroups, LoginForm loginForm, Action onSuccessSpendingGroupPick)
+        public SpendingGroupForm(ISpendingApiConsumer spendingApiConsumer, IList<SpendingGroup> spendingGroups, LoginForm loginForm, Action onSuccessSpendingGroupPick)
         {
             InitializeComponent();
+            _spendingApiConsumer = spendingApiConsumer;
             _spendingGroups = spendingGroups;
             _loginForm = loginForm;
             _onSuccessSpendingGroupPick = onSuccessSpendingGroupPick;
@@ -54,11 +58,15 @@ namespace VirtualWallet.DesktopApp.OtherForms
                 var now = DateTime.Now;
                 var currentMonthlySpending = CommonPool.SpendingGroup.MonthlySpendings
                     .FirstOrDefault(ms => ms.Month == now.Month && ms.Year == now.Year);
-                //currentMonthlySpending.Spendings.ForEach(s => s.MonthlySpending = currentMonthlySpending); // Figure out why we have to do that
+                
+                // Get spendings for current MonthlySpending
+                _spendingApiConsumer.SetAuthorization(CommonPool.Credential);
+                var spendings = _spendingApiConsumer.GetSpendingsForMonthlySpending(currentMonthlySpending.Id);
+                currentMonthlySpending.Spendings = spendings.ToList();
+
                 CommonPool.MonthlySpending = currentMonthlySpending;
 
 
-                var spendingsForCurrentMonth = CommonPool.MonthlySpending.Spendings;
                 _onSuccessSpendingGroupPick();
 
                 _loginForm.Dispose();

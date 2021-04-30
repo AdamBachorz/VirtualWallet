@@ -16,16 +16,18 @@ namespace VirtualWallet.DesktopApp.OtherForms
 {
     public partial class LoginForm : Form
     {
-        private readonly IUserApiConsumer _userApiConsumer;
+        private readonly IUserApiConsumer _userApiConsumer; 
+        private readonly ISpendingApiConsumer _spendingApiConsumer;
         private readonly ISpendingGroupApiConsumer _spendingGroupApiConsumer;
         private readonly Action _onSuccessLogIn;
         private readonly Action _onSuccessSpendingGroupPick;
 
-        public LoginForm(IUserApiConsumer userApiConsumer, ISpendingGroupApiConsumer spendingGroupApiConsumer, 
+        public LoginForm(IUserApiConsumer userApiConsumer, ISpendingApiConsumer spendingApiConsumer, ISpendingGroupApiConsumer spendingGroupApiConsumer, 
             Action onSuccessLogIn, Action onSuccessSpendingGroupPick)
         {
             InitializeComponent();
             _userApiConsumer = userApiConsumer;
+            _spendingApiConsumer = spendingApiConsumer;
             _spendingGroupApiConsumer = spendingGroupApiConsumer;
             _onSuccessLogIn = onSuccessLogIn;
             _onSuccessSpendingGroupPick = onSuccessSpendingGroupPick;
@@ -56,7 +58,7 @@ namespace VirtualWallet.DesktopApp.OtherForms
                 _spendingGroupApiConsumer.SetAuthorization(CommonPool.Credential);
                 var spengingGroups = _spendingGroupApiConsumer.GetForUser(CommonPool.CurrentUser.Id).ToList();
 
-                var spendingGroupForm = new SpendingGroupForm(spengingGroups, this, _onSuccessSpendingGroupPick);
+                var spendingGroupForm = new SpendingGroupForm(_spendingApiConsumer, spengingGroups, this, _onSuccessSpendingGroupPick);
                 spendingGroupForm.Show();
             }
             else

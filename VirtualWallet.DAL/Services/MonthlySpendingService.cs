@@ -38,10 +38,10 @@ namespace VirtualWallet.DAL.Services
                     var newSpendingFromConstantSpending = cs.ToSpending(monthlySpending, user);
                     var justAddedSpending = _spendingDao.Insert(newSpendingFromConstantSpending);
                     monthlySpending.Spendings.Add(justAddedSpending);
-                }); // To figure out
+                }); 
 
                 var justAddedMonthlySpending = _monthlySpendingDao.Insert(monthlySpending);
-                //justAddedMonthlySpending.Spendings.ForEach(s => s.MonthlySpending = justAddedMonthlySpending);
+                justAddedMonthlySpending.Spendings.ForEach(s => s.MonthlySpending = justAddedMonthlySpending);
                 _monthlySpendingDao.Update(justAddedMonthlySpending);
                 
 

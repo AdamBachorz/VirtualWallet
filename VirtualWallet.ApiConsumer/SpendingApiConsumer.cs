@@ -16,5 +16,25 @@ namespace VirtualWallet.ApiConsumer
         {
         }
 
+        public IEnumerable<Spending> GetSpendingsForMonthlySpending(int monthlySpendingId)
+        {
+            try
+            {
+                var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<List<Spending>>
+                {
+                    MethodName = $"{ControllerSimpleName}/formonthlyspending/{monthlySpendingId}",
+                    MethodType = MethodType.Get,
+                    ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<List<Spending>>(jsonResult)
+                });
+
+                return apiResponse.Response;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
     }
 }
