@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualWallet.ApiConsumer",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualWallet.DesktopApp", "VirtualWallet.DesktopApp\VirtualWallet.DesktopApp.csproj", "{5BD6DD66-DC4F-4E2E-99F0-482285E2BE7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualWallet.Tests", "VirtualWallet.Tests\VirtualWallet.Tests.csproj", "{1F527887-BB68-4CA0-BE70-802484C0396A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualWallet.Tests", "VirtualWallet.Tests\VirtualWallet.Tests.csproj", "{1F527887-BB68-4CA0-BE70-802484C0396A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualWallet.WebApp", "VirtualWallet.WebApp\VirtualWallet.WebApp.csproj", "{B0573CC5-7E8E-4934-BCAF-74A063347468}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{1F527887-BB68-4CA0-BE70-802484C0396A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F527887-BB68-4CA0-BE70-802484C0396A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F527887-BB68-4CA0-BE70-802484C0396A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0573CC5-7E8E-4934-BCAF-74A063347468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0573CC5-7E8E-4934-BCAF-74A063347468}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0573CC5-7E8E-4934-BCAF-74A063347468}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0573CC5-7E8E-4934-BCAF-74A063347468}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
