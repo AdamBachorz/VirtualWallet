@@ -40,5 +40,23 @@ namespace VirtualWallet.API.Controllers
                 throw;
             }
         }
+
+        [HttpGet("getcurrentandfurtherthan/{dateTime}/{spendingGroupId}")]
+        [BasicAuth]
+        public IList<MonthlySpending> GetCurrentAndFurtherThan(DateTime? dateTime, int spendingGroupId)
+        {
+            try
+            {
+                _logger.LogInformation($"Pobieranie miesięcznych wydatków od daty {dateTime} dale grupy o ID = {spendingGroupId}");
+                var result = _monthlySpendingDao.GetCurrentAndFurtherThan(dateTime, spendingGroupId);
+                _logger.LogSuccess();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex);
+                throw;
+            }
+        }
     }
 }

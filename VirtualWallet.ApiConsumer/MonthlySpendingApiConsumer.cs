@@ -36,5 +36,24 @@ namespace VirtualWallet.ApiConsumer
             }
         }
 
+        public IList<MonthlySpending> GetCurrentAndFurtherThan(DateTime? dateTime, int spendingGroupId)
+        {
+            try
+            {
+                var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<IList<MonthlySpending>>
+                {
+                    MethodName = $"{ControllerSimpleName}/getcurrentandfurtherthan/{dateTime}/{spendingGroupId}",
+                    MethodType = MethodType.Get,
+                    ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<IList<MonthlySpending>>(jsonResult)
+                });
+
+                return apiResponse.Response;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
     }
 }
