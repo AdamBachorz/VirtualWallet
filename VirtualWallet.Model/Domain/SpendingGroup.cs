@@ -4,6 +4,7 @@ using System.Text;
 
 namespace VirtualWallet.Model.Domain
 {
+    [Serializable]
     public class SpendingGroup : Entity
     {
         public virtual string Name { get; set; }

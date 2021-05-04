@@ -10,7 +10,9 @@ namespace VirtualWallet.DAL.Services.Interfaces
     {
         void SignIn(User user, string reference);
         User GetCurrent();
+        SpendingGroup GetCurrentSpendingGroup();
         NetworkCredential Credential();
         void SignOut();
+        void SetSpendingGroup(SpendingGroup spendingGroup);
     }
 }

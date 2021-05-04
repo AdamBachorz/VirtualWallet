@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using VirtualWallet.Common;
 using VirtualWallet.Common.Extensions;
 using VirtualWallet.DAL.Daos.Interfaces;
 using VirtualWallet.DAL.Services.Interfaces;
@@ -24,27 +25,40 @@ namespace VirtualWallet.DAL.Services
         public NetworkCredential Credential()
         {
             var current = GetCurrent();
-            _httpContextAccessor.HttpContext.Session.TryGetValue("reference", out var referenceByteArray);
+            _httpContextAccessor.HttpContext.Session.TryGetValue(Codes.SessionKeys.Referece, out var referenceByteArray);
             return current != null ? new NetworkCredential(current.UserName, referenceByteArray.FromByteArray<string>()) : null; 
         }
 
         public User GetCurrent()
         {
-            var userIsLoggedIn =_httpContextAccessor.HttpContext.Session.TryGetValue("user", out var userByteArray);
+            var userIsLoggedIn =_httpContextAccessor.HttpContext.Session.TryGetValue(Codes.SessionKeys.User, out var userByteArray);
 
             return userIsLoggedIn ? userByteArray.FromByteArray<User>() : null;
         }
 
+        public SpendingGroup GetCurrentSpendingGroup()
+        {
+            var spendingGroupPicked = _httpContextAccessor.HttpContext.Session.TryGetValue(Codes.SessionKeys.SpendingGroup, out var spendingGroupByteArray);
+
+            return spendingGroupPicked ? spendingGroupByteArray.FromByteArray<SpendingGroup>() : null;
+        }
+
+        public void SetSpendingGroup(SpendingGroup spendingGroup)
+        {
+            _httpContextAccessor.HttpContext.Session.Set(Codes.SessionKeys.SpendingGroup, spendingGroup.ToByteArray());
+        }
+
         public void SignIn(User user, string reference)
         {
-            _httpContextAccessor.HttpContext.Session.Set("user", user.ToByteArray());
-            _httpContextAccessor.HttpContext.Session.Set("referecne", reference.ToByteArray());
+            _httpContextAccessor.HttpContext.Session.Set(Codes.SessionKeys.User, user.ToByteArray());
+            _httpContextAccessor.HttpContext.Session.Set(Codes.SessionKeys.Referece, reference.ToByteArray());
         }
 
         public void SignOut()
         {
-            _httpContextAccessor.HttpContext.Session.Remove("user");
-            _httpContextAccessor.HttpContext.Session.Remove("referecne");
+            _httpContextAccessor.HttpContext.Session.Remove(Codes.SessionKeys.User);
+            _httpContextAccessor.HttpContext.Session.Remove(Codes.SessionKeys.Referece);
+            _httpContextAccessor.HttpContext.Session.Remove(Codes.SessionKeys.SpendingGroup);
         }
     }
 }

@@ -6,6 +6,7 @@ using VirtualWallet.Common.Extensions;
 
 namespace VirtualWallet.Model.Domain
 {
+    [Serializable]
     public class MonthlySpending : Entity
     {
         public virtual decimal Budget { get; set; }

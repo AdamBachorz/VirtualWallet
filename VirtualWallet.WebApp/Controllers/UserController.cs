@@ -12,15 +12,10 @@ using System.Net;
 
 namespace VirtualWallet.WebApp.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
-        private readonly IUserContainer _userContainer;
-        private readonly IUserApiConsumer _userApiConsumer;
-
-        public UserController(IUserContainer userContainer, IUserApiConsumer userApiConsumer)
+        public UserController(IUserContainer userContainer, IUserApiConsumer userApiConsumer) : base(userContainer, userApiConsumer)
         {
-            _userContainer = userContainer;
-            _userApiConsumer = userApiConsumer;
         }
 
         // GET: UserController
@@ -55,7 +50,7 @@ namespace VirtualWallet.WebApp.Controllers
             if (userFromDb != null)
             {
                 _userContainer.SignIn(userFromDb, user.PasswordHash);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "SpendingGroup", new { Id = userFromDb.Id });
             }
             else
             {
