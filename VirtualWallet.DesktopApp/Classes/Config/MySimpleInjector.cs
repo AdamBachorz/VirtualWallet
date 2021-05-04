@@ -42,7 +42,7 @@ namespace VirtualWallet.DesktopApp.Classes.Config
         public void Register()
         {
             _container.Register<INHibernateHelper, NHibernateHelper>();
-            _container.RegisterInstance<IUserContainer>(UserContainer.Instance);
+            _container.Register<IUserContainer, UserContainer>();
 
             // DAOs
             _container.Register<IBaseDao<User>, UserDao>();

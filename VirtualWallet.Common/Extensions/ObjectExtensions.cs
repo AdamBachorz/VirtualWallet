@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Web;
 
@@ -23,6 +25,20 @@ namespace VirtualWallet.Common.Extensions
             }
 
             return queryString.Join("&");
+        }
+
+        public static byte[] ToByteArray(this object obj)
+        {
+            if (obj == null)
+            {
+                return null;
+            }
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bf.Serialize(ms, obj);
+                return ms.ToArray();
+            }
         }
     }
 }

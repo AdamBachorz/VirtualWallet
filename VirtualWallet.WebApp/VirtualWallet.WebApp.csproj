@@ -22,4 +22,15 @@
     <PackageReference Include="React.AspNet" Version="5.2.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VirtualWallet.ApiConsumer\VirtualWallet.ApiConsumer.csproj" />
+    <ProjectReference Include="..\VirtualWallet.Common\VirtualWallet.Common.csproj" />
+    <ProjectReference Include="..\VirtualWallet.DAL\VirtualWallet.DAL.csproj" />
+    <ProjectReference Include="..\VirtualWallet.Model\VirtualWallet.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Classes\" />
+  </ItemGroup>
+
 </Project>

@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VirtualWallet.WebApp.Data;
+using VirtualWallet.WebApp.Config;
+using VirtualWallet.DAL.Config;
 
 namespace VirtualWallet.WebApp
 {
@@ -38,6 +40,9 @@ namespace VirtualWallet.WebApp
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<ICustomConfig>(x => Configuration.GetSection(typeof(CustomConfig).Name).Get<CustomConfig>());
+            DependencyInjection.RegisterModules(services);
+
             services.AddReact();
 
             // Make sure a JS engine is registered, or you will get an error!
@@ -46,6 +51,7 @@ namespace VirtualWallet.WebApp
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,6 +97,8 @@ namespace VirtualWallet.WebApp
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseSession();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -98,6 +106,7 @@ namespace VirtualWallet.WebApp
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+          
         }
     }
 }
