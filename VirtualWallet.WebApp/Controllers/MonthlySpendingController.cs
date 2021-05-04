@@ -20,7 +20,7 @@ namespace VirtualWallet.WebApp.Controllers
         }
 
         // GET: MonthlySpendingController
-        public ActionResult Current()
+        public ActionResult Current(DateTime? dateTime)
         {
             var currentSpendingGroup = _userContainer.GetCurrentSpendingGroup();
 
@@ -29,9 +29,16 @@ namespace VirtualWallet.WebApp.Controllers
                 return Home();
             }
 
-            var now = DateTime.Now.AddMonths(-1); // TODO:L Remove later
-            var monthlySpending = _monthlySpendingApiConsumer.GetByMonthAndYear(currentSpendingGroup.Id, now.Month, now.Year);
+            dateTime ??= DateTime.Now;
+            var monthlySpending = _monthlySpendingApiConsumer.GetByMonthAndYear(currentSpendingGroup.Id, dateTime.Value.Month, dateTime.Value.Year);
             return View(monthlySpending);
+        }
+
+        public ActionResult Next(DateTime? currentMonthlySpendingDate, bool forward)
+        {
+            currentMonthlySpendingDate = currentMonthlySpendingDate.Value.AddMonths(forward ? 1 : -1);
+
+            return RedirectToAction("Current", new { dateTime = currentMonthlySpendingDate });
         }
 
         // GET: MonthlySpendingController/Details/5

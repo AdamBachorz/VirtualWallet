@@ -23,10 +23,11 @@ namespace VirtualWallet.Model.Domain
         public virtual string Title => $"{CreationDate?.GetMonthName()} {Year}";
 
         public virtual decimal SpendingSummary => Spendings?.Sum(s => s.Value) ?? 0;
+        public virtual decimal PreviousMonthlySpendingSummaryBilance => (PreviousMonthlySpending?.SummaryBilance ?? 0);
 
         public virtual decimal SummaryBilance
             => this is null ? 0
-            : Budget - SpendingSummary + (PreviousMonthlySpending?.SummaryBilance ?? 0);
+            : Budget - SpendingSummary + PreviousMonthlySpendingSummaryBilance;
 
 
         public static MonthlySpending New(decimal budget, int year, int month, SpendingGroup spendingGroup, MonthlySpending previousMonthlySpending)

@@ -7,6 +7,19 @@
 
 <h1>@Model.Title</h1>
 @{
+    <div style="align-content:center; text-align:center">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <h3>
+                @Html.ActionLink("Poprzedni miesiąc", "Next", "MonthlySpending",
+               new { currentMonthlySpendingDate = Model.CreationDate, forward = false }, new { @class = "badge badge-pill badge-info" })
+                @Html.ActionLink("Wybierz datę", "Next", "MonthlySpending",
+               new { currentMonthlySpendingDate = Model.CreationDate, }, new { @class = "badge badge-pill badge-light" })
+                @Html.ActionLink("Następny miesiąc", "Next", "MonthlySpending",
+               new { currentMonthlySpendingDate = Model.CreationDate, forward = true }, new { @class = "badge badge-pill badge-info" })
+            </h3>
+        </div>
+    </div>
+
     if (Model.Spendings.IsNotNullOrEmpty())
     {
         <div>
@@ -17,21 +30,13 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Budżet: &nbsp; <strong>@Model.Budget zł</strong></li>
                     <li class="list-group-item">Suma wydatków: &nbsp; <strong>@Model.SpendingSummary zł</strong></li>
+                    <li class="list-group-item">Z poprzedniego miesiąca: &nbsp; <strong>@Model.PreviousMonthlySpendingSummaryBilance zł</strong></li>
                     <li class="list-group-item">Bilans końcowy: &nbsp; <strong>@Model.SummaryBilance zł</strong></li>
                 </ul>
             </div>
-            <div style="float:left; margin: 10px 0px 0px 50px;">
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <h3>
-                        @Html.ActionLink("Poprzedni miesiąc", "Next", "MonthlySpending", new { forward = false }, new { @class = "badge badge-pill badge-info" })
-                        @Html.ActionLink("Wybierz", "Next", "MonthlySpending", new {  }, new { @class = "badge badge-pill badge-info" })
-                        @Html.ActionLink("Następny miesiąc", "Next", "MonthlySpending", new { forward = true }, new { @class = "badge badge-pill badge-info" })
-                    </h3>
-                </div>
-            </div>
         </div>
         <div style="clear:both"></div>
-
+        
         <br />
         <p>
             <a asp-action="Create" asp-controller="Spending">Nowy wydatek</a>
