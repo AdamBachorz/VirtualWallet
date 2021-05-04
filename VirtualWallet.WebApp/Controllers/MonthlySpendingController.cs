@@ -41,6 +41,11 @@ namespace VirtualWallet.WebApp.Controllers
             return RedirectToAction("Current", new { dateTime = currentMonthlySpendingDate });
         }
 
+        public ActionResult PickByDate(DateTime? dateTime, int spendingGroupId)
+        {
+            return Home();
+        }
+
         // GET: MonthlySpendingController/Details/5
         public ActionResult Details(int id)
         {

@@ -12,7 +12,7 @@
             <h3>
                 @Html.ActionLink("Poprzedni miesiąc", "Next", "MonthlySpending",
                new { currentMonthlySpendingDate = Model.CreationDate, forward = false }, new { @class = "badge badge-pill badge-info" })
-                @Html.ActionLink("Wybierz datę", "Next", "MonthlySpending",
+                @Html.ActionLink("Wybierz datę", "PickByDate", "MonthlySpending",
                new { currentMonthlySpendingDate = Model.CreationDate, }, new { @class = "badge badge-pill badge-light" })
                 @Html.ActionLink("Następny miesiąc", "Next", "MonthlySpending",
                new { currentMonthlySpendingDate = Model.CreationDate, forward = true }, new { @class = "badge badge-pill badge-info" })
@@ -36,16 +36,16 @@
             </div>
         </div>
         <div style="clear:both"></div>
-        
+
         <br />
-        <p>
-            <a asp-action="Create" asp-controller="Spending">Nowy wydatek</a>
-        </p>
+        @Html.ActionLink("Nowy wydatek", "Create", "Spending", new { month = Model.Month, year = Model.Year }, new { @class = "btn btn-primary" })
 
         @Html.Partial("_Spendings", Model.Spendings);
     }
     else
     {
+        <br />
+        @Html.ActionLink("Nowy wydatek", "Create", "Spending", new { month = Model.Month, year = Model.Year }, new { @class = "btn btn-primary" })
         <h2>Brak wydatków na ten miesiąc</h2>
     }
 }
