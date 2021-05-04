@@ -6,48 +6,47 @@ using System.Linq;
 using System.Threading.Tasks;
 using VirtualWallet.ApiConsumer.Interfaces;
 using VirtualWallet.DAL.Services.Interfaces;
-using VirtualWallet.Model.Domain;
 
 namespace VirtualWallet.WebApp.Controllers
 {
-    public class SpendingGroupController : BaseController
+    public class MonthlySpendingController : BaseController
     {
-        private readonly ISpendingGroupApiConsumer _spendingGroupApiConsumer;
+        private readonly IMonthlySpendingApiConsumer _monthlySpendingApiConsumer;
 
-        public SpendingGroupController(IUserContainer userContainer, IUserApiConsumer userApiConsumer, 
-            ISpendingGroupApiConsumer spendingGroupApiConsumer) : base(userContainer, userApiConsumer)
+        public MonthlySpendingController(IUserContainer userContainer, IUserApiConsumer userApiConsumer, 
+            IMonthlySpendingApiConsumer monthlySpendingApiConsumer) : base(userContainer, userApiConsumer)
         {
-            _spendingGroupApiConsumer = spendingGroupApiConsumer;
+            _monthlySpendingApiConsumer = monthlySpendingApiConsumer;
         }
 
-        // GET: UserSpendingGroupController
-        public ActionResult Index(User user)
+        // GET: MonthlySpendingController
+        public ActionResult Current()
         {
-            var spendingGroups = _spendingGroupApiConsumer.GetForUser(user.Id);
-            return View(spendingGroups);
+            var currentSpendingGroup = _userContainer.GetCurrentSpendingGroup();
+
+            if (currentSpendingGroup is null)
+            {
+                return Home();
+            }
+
+            var now = DateTime.Now.AddMonths(-1); // TODO:L Remove later
+            var monthlySpending = _monthlySpendingApiConsumer.GetByMonthAndYear(currentSpendingGroup.Id, now.Month, now.Year);
+            return View(monthlySpending);
         }
 
-        public ActionResult Pick(int spendingGroupId)
-        {
-            // TODO: Make sure that picked sepnding group is for current user
-            var pickedSpendingGroup = _spendingGroupApiConsumer.GetOneById(spendingGroupId);
-            _userContainer.SetSpendingGroup(pickedSpendingGroup);
-            return RedirectToAction("Current", "MonthlySpending");
-        }
-
-        // GET: UserSpendingGroupController/Details/5
+        // GET: MonthlySpendingController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: UserSpendingGroupController/Create
+        // GET: MonthlySpendingController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: UserSpendingGroupController/Create
+        // POST: MonthlySpendingController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -62,13 +61,13 @@ namespace VirtualWallet.WebApp.Controllers
             }
         }
 
-        // GET: UserSpendingGroupController/Edit/5
+        // GET: MonthlySpendingController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: UserSpendingGroupController/Edit/5
+        // POST: MonthlySpendingController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -83,13 +82,13 @@ namespace VirtualWallet.WebApp.Controllers
             }
         }
 
-        // GET: UserSpendingGroupController/Delete/5
+        // GET: MonthlySpendingController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: UserSpendingGroupController/Delete/5
+        // POST: MonthlySpendingController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

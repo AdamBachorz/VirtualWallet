@@ -18,5 +18,7 @@ namespace VirtualWallet.WebApp.Controllers
             _userContainer = userContainer;
             _userApiConsumer = userApiConsumer;
         }
+
+        public ActionResult Home() => RedirectToAction("Index", "Home");
     }
 }

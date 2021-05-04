@@ -14,10 +14,11 @@ namespace VirtualWallet.DAL.Daos
         {
         }
 
-        public MonthlySpending GetByMonthAndYear(int month, int year) // add user or spending group Id
+        public MonthlySpending GetByMonthAndYear(int spendingGroupId, int month, int year)
         {
+            var t = Invoke(session => session.Query<MonthlySpending>().ToList());
             return Invoke(session => session.Query<MonthlySpending>()
-            .FirstOrDefault(ms => ms.CreationDate.Value.Month == month && ms.CreationDate.Value.Year == year));
+            .FirstOrDefault(ms => ms.SpendingGroup.Id == spendingGroupId && ms.CreationDate.Value.Month == month && ms.CreationDate.Value.Year == year));
         }
 
         public IList<MonthlySpending> GetCurrentAndFurtherThan(DateTime? dateTime, int spendingGroupId)

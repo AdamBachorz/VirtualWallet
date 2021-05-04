@@ -1,0 +1,46 @@
+﻿@using VirtualWallet.Common.Extensions
+@model VirtualWallet.Model.Domain.MonthlySpending
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Model.Title</h1>
+@{
+    if (Model.Spendings.IsNotNullOrEmpty())
+    {
+        <div>
+            <div class="card" style="width: 18rem; float: left">
+                <div class="card-header">
+                    Podsumowanie
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Budżet: &nbsp; <strong>@Model.Budget zł</strong></li>
+                    <li class="list-group-item">Suma wydatków: &nbsp; <strong>@Model.SpendingSummary zł</strong></li>
+                    <li class="list-group-item">Bilans końcowy: &nbsp; <strong>@Model.SummaryBilance zł</strong></li>
+                </ul>
+            </div>
+            <div style="float:left; margin: 10px 0px 0px 50px;">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <h3>
+                        @Html.ActionLink("Poprzedni miesiąc", "Next", "MonthlySpending", new { forward = false }, new { @class = "badge badge-pill badge-info" })
+                        @Html.ActionLink("Wybierz", "Next", "MonthlySpending", new {  }, new { @class = "badge badge-pill badge-info" })
+                        @Html.ActionLink("Następny miesiąc", "Next", "MonthlySpending", new { forward = true }, new { @class = "badge badge-pill badge-info" })
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+
+        <br />
+        <p>
+            <a asp-action="Create" asp-controller="Spending">Nowy wydatek</a>
+        </p>
+
+        @Html.Partial("_Spendings", Model.Spendings);
+    }
+    else
+    {
+        <h2>Brak wydatków na ten miesiąc</h2>
+    }
+}

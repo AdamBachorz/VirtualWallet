@@ -16,13 +16,13 @@ namespace VirtualWallet.ApiConsumer
         {
         }
 
-        public MonthlySpending GetByMonthAndYear(int month, int year)
+        public MonthlySpending GetByMonthAndYear(int spendingGroupId, int month, int year)
         {
             try
             {
                 var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<MonthlySpending>
                 {
-                    MethodName = $"{ControllerSimpleName}/bymonthandyear/{month}/{year}",
+                    MethodName = $"{ControllerSimpleName}/bymonthandyear/{spendingGroupId}/{month}/{year}",
                     MethodType = MethodType.Get,
                     ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<MonthlySpending>(jsonResult)
                 });

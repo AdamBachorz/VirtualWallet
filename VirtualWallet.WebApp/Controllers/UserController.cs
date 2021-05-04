@@ -64,7 +64,7 @@ namespace VirtualWallet.WebApp.Controllers
         public ActionResult Logout()
         {
             _userContainer.SignOut();
-            return RedirectToAction("Index", "Home");
+            return Home();
         }
         // GET: UserController/Create
 

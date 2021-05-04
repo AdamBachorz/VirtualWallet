@@ -23,14 +23,14 @@ namespace VirtualWallet.API.Controllers
             _monthlySpendingDao = monthlySpendingDao;
         }
 
-        [HttpGet("bymonthandyear/{month}/{year}")]
+        [HttpGet("bymonthandyear/{spendingGroupId}/{month}/{year}")]
         [BasicAuth]
-        public MonthlySpending GetByMonthAndYear(int month, int year)
+        public MonthlySpending GetByMonthAndYear(int spendingGroupId, int month, int year)
         {
             try
             {
-                _logger.LogInformation($"Pobieranie miesięcznego wydatku na podstawie miesiąca {month} i roku {year}");
-                var result = _monthlySpendingDao.GetByMonthAndYear(month, year);
+                _logger.LogInformation($"Pobieranie miesięcznego wydatku ID = {spendingGroupId} na podstawie miesiąca {month} i roku {year}");
+                var result = _monthlySpendingDao.GetByMonthAndYear(spendingGroupId, month, year);
                 _logger.LogSuccess();
                 return result;
             }
