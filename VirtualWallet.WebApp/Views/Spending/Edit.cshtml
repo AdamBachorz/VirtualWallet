@@ -1,0 +1,54 @@
+﻿@model VirtualWallet.Model.Domain.Spending
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edycja wydatku</h1>
+
+<hr />
+<span class="text-danger">@Html.ValidationSummary()</span>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label>
+                @*<input asp-for="Value" class="form-control"  />*@
+                <input name="money-value" class="form-control" value="@Model.Value" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="CreationDate" class="form-control" type="hidden" />
+                <span asp-validation-for="CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="User" class="form-control" type="hidden" />
+                <span asp-validation-for="User" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="MonthlySpending" class="form-control" type="hidden" />
+                <span asp-validation-for="MonthlySpending" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="hidden" name="monthly-spending-id" value="@Model.MonthlySpending.Id" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Zapisz zmiany" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Current" asp-controller="MonthlySpending">Powrót</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

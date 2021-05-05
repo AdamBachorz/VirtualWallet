@@ -9,7 +9,7 @@ namespace VirtualWallet.Common
         public struct SessionKeys
         {
             public const string User = "USER";
-            public const string Referece = "REFERENCE";
+            public const string Reference = "REFERENCE";
             public const string SpendingGroup = "SPENDING_GROUP";
         }
     }

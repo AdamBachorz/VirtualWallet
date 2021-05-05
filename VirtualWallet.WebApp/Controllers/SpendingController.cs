@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VirtualWallet.ApiConsumer.Interfaces;
 using VirtualWallet.DAL.Services.Interfaces;
 using VirtualWallet.Model.Domain;
+using VirtualWallet.Common.Extensions;
 
 namespace VirtualWallet.WebApp.Controllers
 {
@@ -46,7 +47,7 @@ namespace VirtualWallet.WebApp.Controllers
         public ActionResult Create(Spending spending)
         {
             // TODO: Add validation
-            var currentUser = _userContainer.GetCurrent();
+            var currentUser = _userContainer.GetCurrentUser();
             var currentSpendingGroup = _userContainer.GetCurrentSpendingGroup();
 
             spending.User = currentUser;
@@ -77,25 +78,52 @@ namespace VirtualWallet.WebApp.Controllers
         //}
 
         // GET: SpendingController/Edit/5
-        public ActionResult Edit(int id)
+
+        [HttpGet]
+        public ActionResult Edit(int id, int month, int year)
         {
-            return View();
+            var spending = _spendingApiConsumer.GetOneById(id);
+            return View(spending);
+        }
+        [HttpPost]
+        public ActionResult Edit(Spending spending)
+        {
+            var monthlySpendingId = int.Parse(Request.Form["monthly-spending-id"]);
+            var monthlySpending = _monthlySpendingApiConsumer.GetOneById(monthlySpendingId);
+            spending.MonthlySpending = monthlySpending;
+            spending.User = _userContainer.GetCurrentUser();
+
+            var valueIsDecimal = decimal.TryParse(Request.Form["money-value"].ToString()?.Replace(".", ",") ?? "0", out var value);
+            if (!valueIsDecimal)
+            {
+                ModelState.AddModelError("1", "Podana wartość nie jest liczbą");
+            }
+            spending.Value = value;
+
+            if (!ModelState.IsValid)
+            {
+                return View(spending);
+            }
+            _spendingApiConsumer.Update(spending);
+            var month = spending.CreationDate.Value.Month;
+            var year = spending.CreationDate.Value.Year;
+            return RedirectToAction("Current", "MonthlySpending", new { dateTime = new DateTime(year, month, 1) }); 
         }
 
         // POST: SpendingController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: SpendingController/Delete/5
         public ActionResult Delete(int id, int month, int year)

@@ -1,15 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using VirtualWallet.DAL.Services.Interfaces 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@*@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager*@
 @inject IUserContainer UserContainer
 
-@{ 
-    var current = UserContainer.GetCurrent();
-}
-
 <ul class="navbar-nav">
-    @if (current != null)
+    @if (UserContainer.IsUserLoggedIn(out var current))
     {
         <li class="nav-item">
             <a class="nav-link text-dark" asp-page="/User/Index" title="Manage">@current.Greeting</a>

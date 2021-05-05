@@ -24,12 +24,15 @@ namespace VirtualWallet.DAL.Services
 
         public NetworkCredential Credential()
         {
-            var current = GetCurrent();
-            _httpContextAccessor.HttpContext.Session.TryGetValue(Codes.SessionKeys.Referece, out var referenceByteArray);
-            return current != null ? new NetworkCredential(current.UserName, referenceByteArray.FromByteArray<string>()) : null; 
+            if (!IsUserLoggedIn(out var current))
+            {
+                return null;
+            }
+            _httpContextAccessor.HttpContext.Session.TryGetValue(Codes.SessionKeys.Reference, out var referenceByteArray);
+            return new NetworkCredential(current.UserName, referenceByteArray.FromByteArray<string>()); 
         }
 
-        public User GetCurrent()
+        public User GetCurrentUser()
         {
             var userIsLoggedIn =_httpContextAccessor.HttpContext.Session.TryGetValue(Codes.SessionKeys.User, out var userByteArray);
 
@@ -51,14 +54,21 @@ namespace VirtualWallet.DAL.Services
         public void SignIn(User user, string reference)
         {
             _httpContextAccessor.HttpContext.Session.Set(Codes.SessionKeys.User, user.ToByteArray());
-            _httpContextAccessor.HttpContext.Session.Set(Codes.SessionKeys.Referece, reference.ToByteArray());
+            _httpContextAccessor.HttpContext.Session.Set(Codes.SessionKeys.Reference, reference.ToByteArray());
         }
 
         public void SignOut()
         {
             _httpContextAccessor.HttpContext.Session.Remove(Codes.SessionKeys.User);
-            _httpContextAccessor.HttpContext.Session.Remove(Codes.SessionKeys.Referece);
+            _httpContextAccessor.HttpContext.Session.Remove(Codes.SessionKeys.Reference);
             _httpContextAccessor.HttpContext.Session.Remove(Codes.SessionKeys.SpendingGroup);
+        }
+
+        public bool IsUserLoggedIn() => GetCurrentUser() != null;
+        public bool IsUserLoggedIn(out User currentUser)
+        {
+            currentUser = GetCurrentUser();
+            return currentUser != null;
         }
     }
 }

@@ -9,7 +9,9 @@ namespace VirtualWallet.DAL.Services.Interfaces
     public interface IUserContainer
     {
         void SignIn(User user, string reference);
-        User GetCurrent();
+        bool IsUserLoggedIn();
+        bool IsUserLoggedIn(out User currentUser);
+        User GetCurrentUser();
         SpendingGroup GetCurrentSpendingGroup();
         NetworkCredential Credential();
         void SignOut();
