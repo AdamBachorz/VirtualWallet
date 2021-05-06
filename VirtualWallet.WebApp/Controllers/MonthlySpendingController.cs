@@ -41,15 +41,9 @@ namespace VirtualWallet.WebApp.Controllers
             return RedirectToAction("Current", new { dateTime = currentMonthlySpendingDate });
         }
 
-        public ActionResult PickByDate(DateTime? dateTime, int spendingGroupId)
+        public ActionResult Pick(int month, int year)
         {
-            return Home();
-        }
-
-        // GET: MonthlySpendingController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
+            return RedirectToAction("Current", new { dateTime = new DateTime(year, month, 1) });
         }
 
         // GET: MonthlySpendingController/Create
@@ -58,40 +52,10 @@ namespace VirtualWallet.WebApp.Controllers
             return View();
         }
 
-        // POST: MonthlySpendingController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: MonthlySpendingController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
-        }
-
-        // POST: MonthlySpendingController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: MonthlySpendingController/Delete/5
@@ -100,19 +64,5 @@ namespace VirtualWallet.WebApp.Controllers
             return View();
         }
 
-        // POST: MonthlySpendingController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

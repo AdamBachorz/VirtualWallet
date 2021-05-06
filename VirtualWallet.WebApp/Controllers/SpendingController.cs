@@ -47,19 +47,19 @@ namespace VirtualWallet.WebApp.Controllers
         public ActionResult Create(Spending spending)
         {
             // TODO: Add validation
+
             var currentUser = _userContainer.GetCurrentUser();
             var currentSpendingGroup = _userContainer.GetCurrentSpendingGroup();
 
             spending.User = currentUser;
-            spending.CreationDate ??= DateTime.Now;
+            var date = DateTime.Parse(Request.Form["date-picker"]);
+            spending.CreationDate = date;
 
-            var month = spending.CreationDate.Value.Month;
-            var year = spending.CreationDate.Value.Year;
-            var currentMonthlySpending = _monthlySpendingApiConsumer.GetByMonthAndYear(currentSpendingGroup.Id, month, year);
+            var currentMonthlySpending = _monthlySpendingApiConsumer.GetByMonthAndYear(currentSpendingGroup.Id, date.Month, date.Year);
             spending.MonthlySpending = currentMonthlySpending;
             var justAddedSpending = _spendingApiConsumer.Insert(spending);
 
-            return RedirectToAction("Current", "MonthlySpending" , new { dateTime = new DateTime(year, month, 1) });
+            return RedirectToAction("Current", "MonthlySpending" , new { dateTime = new DateTime(date.Year, date.Month, 1) });
         }
 
         // POST: SpendingController/Create

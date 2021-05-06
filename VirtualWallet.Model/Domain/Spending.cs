@@ -20,6 +20,7 @@ namespace VirtualWallet.Model.Domain
         [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public virtual decimal Value { get; set; }
         [DisplayName("Data utworzenia")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
         public virtual DateTime? CreationDate { get; set; }
         [DisplayName("Kto dodał")]
         public virtual User User { get; set; }

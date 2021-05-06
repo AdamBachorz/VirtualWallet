@@ -9,14 +9,19 @@
 @{
     <div style="align-content:center; text-align:center">
         <div class="btn-group" role="group" aria-label="Basic example">
-            <h3>
-                @Html.ActionLink("Poprzedni miesiąc", "Next", "MonthlySpending",
-               new { currentMonthlySpendingDate = Model.CreationDate, forward = false }, new { @class = "badge badge-pill badge-info" })
-                @Html.ActionLink("Wybierz datę", "PickByDate", "MonthlySpending",
-               new { currentMonthlySpendingDate = Model.CreationDate, }, new { @class = "badge badge-pill badge-light" })
-                @Html.ActionLink("Następny miesiąc", "Next", "MonthlySpending",
-               new { currentMonthlySpendingDate = Model.CreationDate, forward = true }, new { @class = "badge badge-pill badge-info" })
-            </h3>
+            <div style="float:left">
+                <h3>
+                    @Html.ActionLink("Poprzedni miesiąc", "Next", "MonthlySpending",
+                   new { currentMonthlySpendingDate = Model.CreationDate, forward = false }, new { @class = "badge badge-pill badge-info" })
+                </h3>
+            </div>
+            <input id="date-picker" class="form-control" style="margin: 0px 10px 0px 10px; max-width: 150px" value="@Model.CreationDate?.ToString("MMMM yyyy")" />
+            <div>
+                <h3>
+                    @Html.ActionLink("Następny miesiąc", "Next", "MonthlySpending",
+                   new { currentMonthlySpendingDate = Model.CreationDate, forward = true }, new { @class = "badge badge-pill badge-info" })
+                </h3>
+            </div>
         </div>
     </div>
 
@@ -39,7 +44,8 @@
 
         <br />
         @Html.ActionLink("Nowy wydatek", "Create", "Spending", new { month = Model.Month, year = Model.Year }, new { @class = "btn btn-primary" })
-
+        <br />
+        <br />
         @Html.Partial("_Spendings", Model.Spendings);
     }
     else
@@ -48,4 +54,35 @@
         @Html.ActionLink("Nowy wydatek", "Create", "Spending", new { month = Model.Month, year = Model.Year }, new { @class = "btn btn-primary" })
         <h2>Brak wydatków na ten miesiąc</h2>
     }
+}
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $('#date-picker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'MM yy',
+                onClose: function (dateText, inst) {
+                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    var date = new Date(year, month, 1);
+                    $(this).datepicker('setDate', date);
+                    var link = '/MonthlySpending/Pick?month=' + (date.getMonth() + 1) + '&year=' + date.getFullYear();
+                    window.location.href = link;
+                }
+            });
+        });
+    </script>
+}
+
+@section Styles
+{
+    <style>
+        .ui-datepicker-calendar {
+            display: none;
+        }
+    </style>
 }

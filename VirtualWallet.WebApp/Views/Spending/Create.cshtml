@@ -4,6 +4,10 @@
     ViewData["Title"] = "Create";
 }
 
+@{
+    var defaultDate = new DateTime(ViewBag.Year, ViewBag.Month, DateTime.Now.Day);
+}
+
 <h1>Nowy Wydatek</h1>
 
 <h4>Dodawanie</h4>
@@ -24,12 +28,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="CreationDate" class="control-label"></label>
-                <label class="control-label">(Domyślnie: @DateTime.Now.ToString("dd-MM-yyyy"))</label>
-                <input asp-for="CreationDate" class="form-control" />
+                <label class="control-label">(Domyślnie: @defaultDate.ToString("dd.MM.yyyy"))</label>
+                <input name="date-picker" type="date" class="form-control" value="@defaultDate.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="CreationDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Utwórz" class="btn btn-primary" />
+                <input id="submit-btn" type="submit" value="Utwórz" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -41,4 +45,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+    </script>
 }
