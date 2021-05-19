@@ -50,6 +50,7 @@ namespace VirtualWallet.WebApp.Controllers
 
         public IActionResult QuickLog()
         {
+#if Debug
             var credential = new NetworkCredential("admin", "admintest");
             _userApiConsumer.SetAuthorization(credential);
             _spendingGroupApiConsumer.SetAuthorization(credential);
@@ -57,6 +58,9 @@ namespace VirtualWallet.WebApp.Controllers
             _userContainer.SignIn(user, "admintest");
             _userContainer.SetSpendingGroup(_spendingGroupApiConsumer.GetForUser(user.Id).First());
             return RedirectToAction("Current", "MonthlySpending");
+#else
+            return RedirectToAction("Login", "User");
+#endif
         }
     }
 }

@@ -36,5 +36,11 @@ namespace VirtualWallet.API.Controllers
             return _testEntityDao.GetTestAllLazy().FirstOrDefault(te => te.Id == id);
         }
 
+        [HttpGet("test/one")]
+        public TestEntity GetTestOne()
+        {
+            return new TestEntity { Text = "ttt", Value = 12.21m };
+        }
+
     }
 }

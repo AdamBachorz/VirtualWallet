@@ -9,12 +9,12 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
 
+COPY ["VirtualWallet.API/VirtualWallet.API.csproj", "VirtualWallet.API/"]
 COPY ["VirtualWallet.WebApp/VirtualWallet.WebApp.csproj", "VirtualWallet.WebApp/"]
-# COPY ["VirtualWallet.API/VirtualWallet.API.csproj", "VirtualWallet.API/"]
-# COPY ["VirtualWallet.ApiConsumer/VirtualWallet.ApiConsumer.csproj", "VirtualWallet.ApiConsumer/"]
-# COPY ["VirtualWallet.Common/VirtualWallet.Common.csproj", "VirtualWallet.Common/"]
-# COPY ["VirtualWallet.Model/VirtualWallet.Model.csproj", "VirtualWallet.Model/"]
-# COPY ["VirtualWallet.DAL/VirtualWallet.DAL.csproj", "VirtualWallet.DAL/"]
+COPY ["VirtualWallet.ApiConsumer/VirtualWallet.ApiConsumer.csproj", "VirtualWallet.ApiConsumer/"]
+COPY ["VirtualWallet.Common/VirtualWallet.Common.csproj", "VirtualWallet.Common/"]
+COPY ["VirtualWallet.Model/VirtualWallet.Model.csproj", "VirtualWallet.Model/"]
+COPY ["VirtualWallet.DAL/VirtualWallet.DAL.csproj", "VirtualWallet.DAL/"]
 #COPY ["VirtualWallet.csproj", "VirtualWallet/"]
 
 # RUN dotnet restore "VirtualWallet.API/VirtualWallet.API.csproj"

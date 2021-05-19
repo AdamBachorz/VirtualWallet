@@ -17,6 +17,14 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "IISP Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "api",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    },
     "VirtualWallet.API": {
       "commandName": "Project",
       "launchBrowser": true,

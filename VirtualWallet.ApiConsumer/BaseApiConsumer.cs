@@ -35,7 +35,7 @@ namespace VirtualWallet.ApiConsumer
 
         public string TestHostUrl { get; } = "https://localhost:5001/api";
         public string TestSslHostUrl { get; } = "https://localhost:44367/api";
-        public string RemoteHostUrl { get; } = ""; // TBE
+        public string RemoteHostUrl { get; } = "https://virtualwalletappapi.herokuapp.com/api";
 
         public void SetAuthorization(NetworkCredential networkCredential)
         {
