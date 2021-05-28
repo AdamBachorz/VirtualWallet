@@ -15,10 +15,10 @@ namespace VirtualWallet.Model.Domain.Mappings
                .Column("id_spending_group")
                .Not.LazyLoad()
                ;
-            References(x => x.PreviousMonthlySpending)
-                .Column("id_monthly_spending")
-                .Not.LazyLoad()
-                ;
+            //References(x => x.PreviousMonthlySpending)
+            //    .Column("id_monthly_spending")
+            //    .Not.LazyLoad()
+            //    ;
             HasMany(x => x.Spendings)
                 //.KeyColumn("id_monthly_spending")
                 .Not.LazyLoad()

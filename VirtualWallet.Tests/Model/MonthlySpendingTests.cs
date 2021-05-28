@@ -53,15 +53,11 @@ namespace VirtualWallet.Tests.Model
                 new Spending {Value = 100},
             };
 
-            var monthlySpending = new MonthlySpending 
-            { 
+            var monthlySpending = new MonthlySpending
+            {
                 Budget = 10000,
                 Spendings = spendings,
-                PreviousMonthlySpending = new MonthlySpending 
-                { 
-                    Budget = 1000, 
-                    Spendings = previousMonthSpendings 
-                }
+                PreviousMonthlySpendingSummaryBilance = 800,
             };
 
             Assert.That(monthlySpending.SummaryBilance, Is.EqualTo(10700));

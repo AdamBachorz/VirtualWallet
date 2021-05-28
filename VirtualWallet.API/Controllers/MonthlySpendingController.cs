@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using VirtualWallet.API.Classes.Extensions;
 using VirtualWallet.API.Config;
 using VirtualWallet.DAL.Daos.Interfaces;
+using VirtualWallet.DAL.Services.Interfaces;
 using VirtualWallet.Model.Domain;
 
 namespace VirtualWallet.API.Controllers
@@ -17,10 +18,13 @@ namespace VirtualWallet.API.Controllers
     public class MonthlySpendingController : CustomBaseController<MonthlySpendingController, MonthlySpending>
     {
         private readonly IMonthlySpendingDao _monthlySpendingDao;
+        private readonly IMonthlySpendingService _monthlySpendingService;
 
-        public MonthlySpendingController(ILogger<MonthlySpendingController> logger, IBaseDao<MonthlySpending> baseDao, IMonthlySpendingDao monthlySpendingDao) : base(logger, baseDao)
+        public MonthlySpendingController(ILogger<MonthlySpendingController> logger, IBaseDao<MonthlySpending> baseDao, IMonthlySpendingDao monthlySpendingDao, 
+            IMonthlySpendingService monthlySpendingService) : base(logger, baseDao)
         {
             _monthlySpendingDao = monthlySpendingDao;
+            _monthlySpendingService = monthlySpendingService;
         }
 
         [HttpGet("bymonthandyear/{spendingGroupId}/{month}/{year}")]
@@ -47,8 +51,26 @@ namespace VirtualWallet.API.Controllers
         {
             try
             {
-                _logger.LogInformation($"Pobieranie miesięcznych wydatków od daty {dateTime} dale grupy o ID = {spendingGroupId}");
+                _logger.LogInformation($"Pobieranie miesięcznych wydatków od daty {dateTime} dla grupy o ID = {spendingGroupId}");
                 var result = _monthlySpendingDao.GetCurrentAndFurtherThan(dateTime, spendingGroupId);
+                _logger.LogSuccess();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex);
+                throw;
+            }
+        }
+
+        [HttpPost("add/{spendingGroupId}/{userId}/{year}/{month}")]
+        [BasicAuth]
+        public MonthlySpending Add(int spendingGroupId, int userId, int year, int month)
+        {
+            try
+            {
+                _logger.LogInformation($"Dodawanie miesięcznych wydatków dla grupy o ID = {spendingGroupId}");
+                var result = _monthlySpendingService.AddNew(spendingGroupId, userId, year, month);
                 _logger.LogSuccess();
                 return result;
             }

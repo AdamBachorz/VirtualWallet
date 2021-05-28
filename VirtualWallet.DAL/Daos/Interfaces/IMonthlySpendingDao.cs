@@ -7,6 +7,7 @@ namespace VirtualWallet.DAL.Daos.Interfaces
 {
     public interface IMonthlySpendingDao : IBaseDao<MonthlySpending>
     {
+        MonthlySpending GetByDate(int spendingGroupId, DateTime dateTime);
         MonthlySpending GetByMonthAndYear(int spendingGroupId, int month, int year);
         IList<MonthlySpending> GetCurrentAndFurtherThan(DateTime? dateTime, int spendingGroupId);
     }

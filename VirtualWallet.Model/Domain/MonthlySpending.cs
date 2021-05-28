@@ -11,7 +11,7 @@ namespace VirtualWallet.Model.Domain
     {
         public virtual decimal Budget { get; set; }
         public virtual DateTime? CreationDate { get; set; }
-        public virtual MonthlySpending PreviousMonthlySpending { get; set; }
+        public virtual decimal PreviousMonthlySpendingSummaryBilance { get; set; }
         public virtual IList<Spending> Spendings { get; set; }
         public virtual SpendingGroup SpendingGroup { get; set; }
 
@@ -23,21 +23,20 @@ namespace VirtualWallet.Model.Domain
         public virtual string Title => $"{CreationDate?.GetMonthName()} {Year}";
 
         public virtual decimal SpendingSummary => Spendings?.Sum(s => s.Value) ?? 0;
-        public virtual decimal PreviousMonthlySpendingSummaryBilance => (PreviousMonthlySpending?.SummaryBilance ?? 0);
 
         public virtual decimal SummaryBilance
             => this is null ? 0
             : Budget - SpendingSummary + PreviousMonthlySpendingSummaryBilance;
 
 
-        public static MonthlySpending New(decimal budget, int year, int month, SpendingGroup spendingGroup, MonthlySpending previousMonthlySpending)
+        public static MonthlySpending New(SpendingGroup spendingGroup, MonthlySpending previousMonthlySpending, User user, DateTime creationDate)
             => new MonthlySpending
             {
-                Budget = budget,
+                Budget = spendingGroup.Budget,
                 SpendingGroup = spendingGroup,
-                PreviousMonthlySpending = previousMonthlySpending,
-                CreationDate = new DateTime(year, month, 1),
-                Spendings = new List<Spending>() //spendingGroup.ConstantSpendings.Select(cs  => cs.ToSpending())
+                PreviousMonthlySpendingSummaryBilance = previousMonthlySpending?.SummaryBilance ?? 0,
+                CreationDate = creationDate,
+                Spendings = spendingGroup.ConstantSpendings.Select(cs  => cs.ToSpending(previousMonthlySpending, user)).ToList()
             };
     }
 }
