@@ -29,14 +29,13 @@ namespace VirtualWallet.Model.Domain
             : Budget - SpendingSummary + PreviousMonthlySpendingSummaryBilance;
 
 
-        public static MonthlySpending New(SpendingGroup spendingGroup, MonthlySpending previousMonthlySpending, User user, DateTime creationDate)
+        public static MonthlySpending New(SpendingGroup spendingGroup, decimal previousMonthlySpendingSummaryBilance, User user, DateTime creationDate)
             => new MonthlySpending
             {
                 Budget = spendingGroup.Budget,
                 SpendingGroup = spendingGroup,
-                PreviousMonthlySpendingSummaryBilance = previousMonthlySpending?.SummaryBilance ?? 0,
+                PreviousMonthlySpendingSummaryBilance = previousMonthlySpendingSummaryBilance,
                 CreationDate = creationDate,
-                Spendings = spendingGroup.ConstantSpendings.Select(cs  => cs.ToSpending(previousMonthlySpending, user)).ToList()
             };
     }
 }

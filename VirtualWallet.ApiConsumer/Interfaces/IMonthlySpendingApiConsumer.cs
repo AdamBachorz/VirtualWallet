@@ -7,6 +7,7 @@ namespace VirtualWallet.ApiConsumer.Interfaces
 {
     public interface IMonthlySpendingApiConsumer : IBaseApiConsumer<MonthlySpending>
     {
+        MonthlySpending GetNext(DateTime? currentMonthlySpendingDate, int spendingGroupId, int userId, bool forward);
         MonthlySpending GetByMonthAndYear(int spendingGroupId, int month, int year);
         IList<MonthlySpending> GetCurrentAndFurtherThan(DateTime? dateTime, int spendingGroupId);
     }

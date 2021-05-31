@@ -10,5 +10,6 @@ namespace VirtualWallet.DAL.Services.Interfaces
         IEnumerable<MonthlySpending> AddInMonthRange(int year, decimal budget, int startMonth, int endMonth, int spendingGroupId, int userId);
         IEnumerable<MonthlySpending> AddForWholeYear(int year, decimal budget, int spendingGroupId, int userId);
         MonthlySpending AddNew(int spendingGroupId, int userId, int year, int month);
+        MonthlySpending Next(DateTime? currentMonthlySpendingDate, int spendingGroupId, int userId, bool forward);
     }
 }

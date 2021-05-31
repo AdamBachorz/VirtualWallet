@@ -27,6 +27,24 @@ namespace VirtualWallet.API.Controllers
             _monthlySpendingService = monthlySpendingService;
         }
 
+        [HttpGet("next/{currentMonthlySpendingDate}/{spendingGroupId}/{userId}/{forward}")]
+        [BasicAuth]
+        public MonthlySpending GetNext(DateTime? currentMonthlySpendingDate, int spendingGroupId, int userId, bool forward)
+        {
+            try
+            {
+                _logger.LogInformation($"Pobieranie następnego miesięcznego wydatku ID = {spendingGroupId}");
+                var result = _monthlySpendingService.Next(currentMonthlySpendingDate, spendingGroupId, userId, forward);
+                _logger.LogSuccess();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex);
+                throw;
+            }
+        }
+
         [HttpGet("bymonthandyear/{spendingGroupId}/{month}/{year}")]
         [BasicAuth]
         public MonthlySpending GetByMonthAndYear(int spendingGroupId, int month, int year)

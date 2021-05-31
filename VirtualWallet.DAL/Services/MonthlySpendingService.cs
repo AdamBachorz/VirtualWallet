@@ -31,14 +31,14 @@ namespace VirtualWallet.DAL.Services
 
         public IEnumerable<MonthlySpending> AddInMonthRange(int year, decimal budget, int startMonth, int endMonth, int spendingGroupId, int userId)
         {
-            var previousMonthlySpending = _monthlySpendingDao.GetLatest();
+            var previousMonthlySpendingSummaryBilance = _monthlySpendingDao.GetLatest().SummaryBilance;
             var spendingGroup = _spendingGroupDao.GetOneById(spendingGroupId);
             var user = _userDao.GetOneById(userId);
 
             for (int m = startMonth; m <= endMonth; m++)
             {
                 var creationDate = new DateTime(year, m, 1);
-                var monthlySpending = MonthlySpending.New(spendingGroup, previousMonthlySpending, user, creationDate);
+                var monthlySpending = MonthlySpending.New(spendingGroup, previousMonthlySpendingSummaryBilance, user, creationDate);
 
                 spendingGroup.ConstantSpendings.ForEach(cs => 
                 {
@@ -50,9 +50,9 @@ namespace VirtualWallet.DAL.Services
                 var justAddedMonthlySpending = _monthlySpendingDao.Insert(monthlySpending);
                 justAddedMonthlySpending.Spendings.ForEach(s => s.MonthlySpending = justAddedMonthlySpending);
                 _monthlySpendingDao.Update(justAddedMonthlySpending);
-                
 
-                previousMonthlySpending = justAddedMonthlySpending;
+
+                previousMonthlySpendingSummaryBilance = justAddedMonthlySpending.SummaryBilance;
 
                 yield return justAddedMonthlySpending;
             }
@@ -68,18 +68,19 @@ namespace VirtualWallet.DAL.Services
             }
         }
 
-        // TODO Nie mieszać wydatków stałych z pozostałymi !!!
         public MonthlySpending AddNew(int spendingGroupId, int userId, int year, int month)
         {
             var creationDate = new DateTime(year, month, 1);
             var spendingGroup = _spendingGroupDao.GetOneById(spendingGroupId);
             var user = _userDao.GetOneById(userId);
-            var previousMonthlySpending = _monthlySpendingDao.GetByDate(spendingGroupId, creationDate.AddMonths(-1));
+            var previousMonthlySpendingSummaryBilance = _monthlySpendingDao.GetByDate(spendingGroupId, creationDate.AddMonths(-1)).SummaryBilance;
 
-            var monthlySpending = MonthlySpending.New(spendingGroup, previousMonthlySpending, user, creationDate);
-
+            var monthlySpending = MonthlySpending.New(spendingGroup, previousMonthlySpendingSummaryBilance, user, creationDate);
             var newMonthlySpending = _monthlySpendingDao.Insert(monthlySpending);
 
+            var newConvertedSpendings = _spendingDao.AddMany(spendingGroup.ConstantSpendings.Select(cs => cs.ToSpending(newMonthlySpending, user)).ToList());
+            newMonthlySpending.Spendings = newConvertedSpendings;
+            _monthlySpendingDao.Update(newMonthlySpending);
             return newMonthlySpending;
         }
 

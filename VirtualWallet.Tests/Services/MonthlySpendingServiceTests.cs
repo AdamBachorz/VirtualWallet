@@ -41,12 +41,12 @@ namespace VirtualWallet.Tests.Services
             _monthlySpendingDaoMock.Setup(msd => msd.GetByDate(spendingGroup.Id, creationDate.AddMonths(-1)));
 
             var month = startMonth;
-            MonthlySpending previousMonthlySpending = null;
+            var previousMonthlySpendingSummaryBilance = 0m;
             var monthlySpendings = Enumerable.Range(startMonth, endMonth - 1)
                 .Select(n =>
                 {
-                    var monthlySpending = MonthlySpending.New(spendingGroup, previousMonthlySpending, user, creationDate.AddMonths(++month));
-                    previousMonthlySpending = monthlySpending;
+                    var monthlySpending = MonthlySpending.New(spendingGroup, previousMonthlySpendingSummaryBilance, user, creationDate.AddMonths(++month));
+                    previousMonthlySpendingSummaryBilance = monthlySpending.SummaryBilance;
                     return monthlySpending;
                 })
                 .ToList();
@@ -78,20 +78,20 @@ namespace VirtualWallet.Tests.Services
             var creationDate = new DateTime(year, startMonth, 1);
             var user = new User { Id = 1 };
             var spendingGroup = new SpendingGroup { Id = 1, Budget = budget };
-            var previousMonthlySpending = new MonthlySpending { Id = 1, Budget = budget, CreationDate = creationDate.AddMonths(-1) };
+            var previousMonthlySpendingSummaryBilance = budget;
             var constantSpendings = Enumerable.Range(1, 2).Select(n => new ConstantSpending { Id = n, Name = $"CS{n}", Value = n, SpendingGroup = spendingGroup });
             spendingGroup.ConstantSpendings = constantSpendings;
 
             _spendingGroupDaoMock.Setup(sgd => sgd.GetOneById(spendingGroup.Id)).Returns(spendingGroup);
             _userDaoMock.Setup(ud => ud.GetOneById(user.Id)).Returns(user);
-            _monthlySpendingDaoMock.Setup(msd => msd.GetByDate(spendingGroup.Id, creationDate.AddMonths(-1))).Returns(previousMonthlySpending);
+            //_monthlySpendingDaoMock.Setup(msd => msd.GetByDate(spendingGroup.Id, creationDate.AddMonths(-1))).Returns(previousMonthlySpending);
 
             var month = startMonth;
             var monthlySpendings = Enumerable.Range(startMonth, endMonth - 1)
                 .Select(n =>
                 {
-                    var monthlySpending = MonthlySpending.New(spendingGroup, previousMonthlySpending, user, creationDate.AddMonths(++month));
-                    previousMonthlySpending = monthlySpending;
+                    var monthlySpending = MonthlySpending.New(spendingGroup, previousMonthlySpendingSummaryBilance, user, creationDate.AddMonths(++month));
+                    previousMonthlySpendingSummaryBilance = monthlySpending.SummaryBilance;
                     return monthlySpending;
                 })
                 .ToList();

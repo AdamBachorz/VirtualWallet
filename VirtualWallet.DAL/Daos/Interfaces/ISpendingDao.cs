@@ -7,6 +7,7 @@ namespace VirtualWallet.DAL.Daos.Interfaces
 {
     public interface ISpendingDao : IBaseDao<Spending>
     {
+        IList<Spending> AddMany(IList<Spending> spendings);
         IList<Spending> GetSpendingsForMonthlySpending(int monthlySpendingId);
     }
 }

@@ -34,11 +34,15 @@ namespace VirtualWallet.WebApp.Controllers
             return View(monthlySpending);
         }
 
+        //TODO: Przetestować - dzaiłanie nowej metody dodającej 
         public ActionResult Next(DateTime? currentMonthlySpendingDate, bool forward)
         {
-            currentMonthlySpendingDate = currentMonthlySpendingDate.Value.AddMonths(forward ? 1 : -1);
+            var currentSpendingGroupId = _userContainer.GetCurrentSpendingGroup().Id;
+            var userId = _userContainer.GetCurrentUser().Id;
 
-            return RedirectToAction("Current", new { dateTime = currentMonthlySpendingDate });
+            var monthlyspending = _monthlySpendingApiConsumer.GetNext(currentMonthlySpendingDate, currentSpendingGroupId, userId, forward);
+
+            return RedirectToAction("Current", new { dateTime = monthlyspending.CreationDate });
         }
 
         public ActionResult Pick(int month, int year)
