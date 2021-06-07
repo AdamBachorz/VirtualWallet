@@ -9,6 +9,7 @@ using VirtualWallet.Model.Domain;
 using VirtualWallet.ApiConsumer.Interfaces;
 using VirtualWallet.Common.Extensions;
 using System.Net;
+using VirtualWallet.Model.Classes;
 
 namespace VirtualWallet.WebApp.Controllers
 {
@@ -31,6 +32,7 @@ namespace VirtualWallet.WebApp.Controllers
         }
 
         // GET: UserController/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -68,28 +70,33 @@ namespace VirtualWallet.WebApp.Controllers
         }
         // GET: UserController/Create
 
-        public ActionResult Register()
+        [HttpPost]
+        public ActionResult Create(User user)
         {
+            var pass = Request.Form["pass"].ToString().Encrypt();
+            user.PasswordHash = pass;
+            user.UserRole = UserRole.User;
+            _userApiConsumer.Insert(user); // TODO Odbezpieczyć na czas rejestracji
             return View();
         }
 
-
         // POST: UserController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: UserController/Edit/5
+
         public ActionResult Edit(int id)
         {
             return View();

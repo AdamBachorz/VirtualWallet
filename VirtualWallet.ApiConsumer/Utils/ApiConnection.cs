@@ -38,10 +38,6 @@ namespace VirtualWallet.ApiConsumer.Utils
                 response.HttpStatusCode = settings.MockResponse.HttpStatusCode;
             }
 
-            //response.Status = ApiResponseStatus.ValidationError;
-            //validator?.VerifyErrorListFromString(resultData);
-            //response.Status = ApiResponseStatus.TechnicalError;
-            
             T result = null;
 
             if (response.HttpStatusCode != HttpStatusCode.Conflict)
