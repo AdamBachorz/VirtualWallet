@@ -31,10 +31,15 @@ namespace VirtualWallet.WebApp.Controllers
 
             dateTime ??= DateTime.Now;
             var monthlySpending = _monthlySpendingApiConsumer.GetByMonthAndYear(currentSpendingGroup.Id, dateTime.Value.Month, dateTime.Value.Year);
+            if (monthlySpending == null)
+            {
+                var user = _userContainer.GetCurrentUser();
+                monthlySpending = _monthlySpendingApiConsumer.Add(currentSpendingGroup.Id, user.Id, dateTime.Value.Year, dateTime.Value.Month);
+            }
+
             return View(monthlySpending);
         }
 
-        //TODO: Przetestować - dzaiłanie nowej metody dodającej 
         public ActionResult Next(DateTime? currentMonthlySpendingDate, bool forward)
         {
             var currentSpendingGroupId = _userContainer.GetCurrentSpendingGroup().Id;

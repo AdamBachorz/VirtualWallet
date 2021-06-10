@@ -10,5 +10,6 @@ namespace VirtualWallet.ApiConsumer.Interfaces
         MonthlySpending GetNext(DateTime? currentMonthlySpendingDate, int spendingGroupId, int userId, bool forward);
         MonthlySpending GetByMonthAndYear(int spendingGroupId, int month, int year);
         IList<MonthlySpending> GetCurrentAndFurtherThan(DateTime? dateTime, int spendingGroupId);
+        MonthlySpending Add(int spendingGroupId, int userId, int year, int month);
     }
 }

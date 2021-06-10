@@ -43,16 +43,38 @@
         <div style="margin-left: 300px; margin-top: 10px">
             <p>
                 <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Link with href
+                    Wydatki stałe
                 </a>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                @*<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     Button with data-target
-                </button>
+                </button>*@
             </p>
             <div class="collapse" id="collapseExample">
-                <div class="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Nazwa
+                            </th>
+                            <th>
+                                Wartość (zł)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SpendingGroup.ConstantSpendings)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Value)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
             <div style="clear:both"></div>
         </div>
@@ -61,7 +83,7 @@
         @Html.ActionLink("Nowy wydatek", "Create", "Spending", new { month = Model.Month, year = Model.Year }, new { @class = "btn btn-primary" })
         <br />
         <br />
-        @Html.Partial("_Spendings", Model.Spendings);
+        @Html.Partial("_Spendings", Model.Spendings.Where(s => s.ConstantSpending == null).ToList());
     }
     else
     {

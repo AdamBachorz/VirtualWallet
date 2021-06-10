@@ -73,12 +73,14 @@ namespace VirtualWallet.DAL.Services
             var creationDate = new DateTime(year, month, 1);
             var spendingGroup = _spendingGroupDao.GetOneById(spendingGroupId);
             var user = _userDao.GetOneById(userId);
-            var previousMonthlySpendingSummaryBilance = _monthlySpendingDao.GetByDate(spendingGroupId, creationDate.AddMonths(-1)).SummaryBilance;
+            var previousMonthlySpendingSummaryBilance = _monthlySpendingDao
+                .GetByMonthAndYear(spendingGroupId, creationDate.AddMonths(-1).Month, creationDate.AddMonths(-1).Year)?.SummaryBilance ?? 0m;
 
             var monthlySpending = MonthlySpending.New(spendingGroup, previousMonthlySpendingSummaryBilance, user, creationDate);
             var newMonthlySpending = _monthlySpendingDao.Insert(monthlySpending);
 
-            var newConvertedSpendings = _spendingDao.AddMany(spendingGroup.ConstantSpendings.Select(cs => cs.ToSpending(newMonthlySpending, user)).ToList());
+            var convertedSpendings = spendingGroup.ConstantSpendings.Select(cs => cs.ToSpending(newMonthlySpending, user)).ToList();
+            var newConvertedSpendings = _spendingDao.AddMany(convertedSpendings);
             newMonthlySpending.Spendings = newConvertedSpendings;
             _monthlySpendingDao.Update(newMonthlySpending);
             return newMonthlySpending;

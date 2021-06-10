@@ -76,5 +76,25 @@ namespace VirtualWallet.ApiConsumer
                 throw;
             }
         }
+
+        public MonthlySpending Add(int spendingGroupId, int userId, int year, int month)
+        {
+            try
+            {
+                var apiResponse = _apiConnection.Invoke(new ApiRequestSettings<MonthlySpending>
+                {
+                    MethodName = $"{ControllerSimpleName}/add/{spendingGroupId}/{userId}/{year}/{month}",
+                    MethodType = MethodType.Post,
+                    ResultDataInterpreter = jsonResult => JsonConvert.DeserializeObject<MonthlySpending>(jsonResult)
+                });
+
+                return apiResponse.Response;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
     }
 }

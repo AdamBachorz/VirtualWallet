@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using VirtualWallet.Common;
 
 namespace VirtualWallet.Model.Domain.Mappings
 {

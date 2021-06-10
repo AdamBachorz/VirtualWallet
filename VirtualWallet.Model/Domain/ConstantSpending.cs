@@ -17,6 +17,7 @@ namespace VirtualWallet.Model.Domain
             {
                 Name = this.Name,
                 Value = this.Value,
+                CreationDate = DateTime.Now,
                 MonthlySpending = monthlySpending,
                 User = user,
                 ConstantSpending = this
