@@ -50,7 +50,7 @@ namespace VirtualWallet.WebApp.Controllers
 
         public IActionResult QuickLog()
         {
-#if Debug
+#if DEBUG
             var credential = new NetworkCredential("admin", "admintest");
             _userApiConsumer.SetAuthorization(credential);
             _spendingGroupApiConsumer.SetAuthorization(credential);

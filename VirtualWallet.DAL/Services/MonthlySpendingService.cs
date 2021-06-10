@@ -29,6 +29,11 @@ namespace VirtualWallet.DAL.Services
             return AddInMonthRange(year, budget, 1, 12, spendingGroupId, userId);
         }
 
+        public IEnumerable<MonthlySpending> AddForWholeYearV2(int year, decimal budget, int spendingGroupId, int userId)
+        {
+            return AddInMonthRangeV2(year, budget, 1, 12, spendingGroupId, userId);
+        }
+
         public IEnumerable<MonthlySpending> AddInMonthRange(int year, decimal budget, int startMonth, int endMonth, int spendingGroupId, int userId)
         {
             var previousMonthlySpendingSummaryBilance = _monthlySpendingDao.GetLatest().SummaryBilance;
@@ -94,8 +99,6 @@ namespace VirtualWallet.DAL.Services
 
             if (nextMonthlySpending == null)
             {
-                var spendingGroup = _spendingGroupDao.GetOneById(spendingGroupId);
-                var user = _userDao.GetOneById(userId);
                 var newNextMonthlySpending = AddNew(spendingGroupId, userId, nextDate.Value.Year, nextDate.Value.Month);
                 return newNextMonthlySpending;
             }
